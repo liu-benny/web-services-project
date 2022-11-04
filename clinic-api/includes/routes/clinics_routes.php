@@ -31,5 +31,31 @@ function handleGetAllClinics(Request $request, Response $response, array $args){
     $response->getBody()->write($response_data);
     return $response->withStatus($response_code);
 
+}
 
+// Callback for HTTP POST /clinics
+function handleCreateClinics(Request $request,Response $response, array $args){
+    
+    $clinics = array();
+    $response_data = array();
+    $response_code = HTTP_CREATED;
+
+    $clinic_model = new ClinicModel();
+
+    $parse_data = $request->getParsedBody();
+
+    foreach($parse_data as $clinic){
+        $clinics = $clinic_model->createClinic($clinic);
+    }
+
+    $requested_format = $request->getHeader('Accept');
+
+    if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
+        $response_data = makeCustomJSONMessage("Created","Record(s) has been successfully created.");
+    } else {
+        $response_data = json_encode(getErrorUnsupportedFormat());
+        $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
+    }
+    $response->getBody()->write($response_data);
+    return $response->withStatus($response_code);
 }
