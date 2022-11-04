@@ -30,11 +30,7 @@ $app->setBasePath("/clinic-api");
 
 
 // Define app routes.
-$app->get('/hello/{your_name}', function (Request $request, Response $response, $args) {
-    //var_dump($args);
-    $response->getBody()->write("Hello!" . $args["your_name"]);
-    return $response;
-});
+$app->get("/clinics","handleGetAllClinics");
 
 // Run the app.
 $app->run();
