@@ -26,6 +26,7 @@ $db_options = [
 define('HTTP_OK', 200);
 define('HTTP_CREATED', 201);
 define('HTTP_NO_CONTENT', 204);
+define('HTTP_BAD_REQUEST',400);
 define('HTTP_METHOD_NOT_ALLOWED', 405);
 define('HTTP_UNSUPPORTED_MEDIA_TYPE',415);
 define('HTTP_NOT_FOUND',404);
