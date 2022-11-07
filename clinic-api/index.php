@@ -22,7 +22,7 @@ $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 $app->setBasePath("/clinic-api");
 
 //-- Step 5) Include the files containing the definitions of the callbacks.
-
+require_once './includes/routes/clinics_routes.php';
 
 //-- Step 6)
 // TODO: And here we define app routes. 

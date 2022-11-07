@@ -45,7 +45,8 @@ function handleCreateClinics(Request $request,Response $response, array $args){
     $parse_data = $request->getParsedBody();
 
     foreach($parse_data as $clinic){
-        $clinics = $clinic_model->createClinic($clinic);
+        $clinics = array("clinic_name" => $clinic['clinic_name'] , "clinic_address" => $clinic['clinic_address'],'clinic_details' => $clinic['clinic_details']);
+        $clinic_model->createClinic($clinic);
     }
 
     $requested_format = $request->getHeader('Accept');
