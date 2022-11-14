@@ -23,6 +23,16 @@ class DoctorModel extends BaseModel{
     }
 
     /**
+     * Retrive information about a given doctor
+     * @return
+     */
+    public function getDoctorById($doctor_id) {
+        $sql = "SELECT * FROM doctor WHERE doctor_id = ?";
+        $data = $this->run($sql, [$doctor_id])->fetch();
+        return $data;
+    }
+
+    /**
      * Create one or multiple doctors
      * @return
      */

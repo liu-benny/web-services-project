@@ -39,6 +39,7 @@ $app->get("/clinics/{clinic_id}/doctors", "handleGetAllDoctorInOneClinic");
 
 // URI: /doctors
 $app->get("/doctors","handleGetAllDoctors");
+$app->get("/doctors/{doctor_id}","handleGetDoctorById");
 $app->post("/doctors","handleCreateDoctors");
 $app->put("/doctors","handleUpdateDoctors");
 $app->delete("/doctors/{doctor_id}","handleDeleteDoctor");
