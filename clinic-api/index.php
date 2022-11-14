@@ -26,13 +26,23 @@ require_once './includes/routes/clinics_routes.php';
 
 //-- Step 6)
 // TODO: And here we define app routes. 
-
-
-
 // Define app routes.
 $app->get("/clinics","handleGetAllClinics");
 $app->post("/clinics","handleCreateClinics");
 $app->put("/clinics","handleUpdateClinics");
+$app->get("/clinics/{clinic_id}/departments", "handleGetAllDepartments");
+$app->post("/clinics/{clinic_id}/departments", "handleCreateDepartments");
+$app->put("/clinics/{clinic_id}/departments", "handleUpdateDepartments");
+$app->delete("/clinics/{clinic_id}/departments/{department_id}", "handleDeleteDepartment");
+$app->get("/clinics/{clinic_id}/doctors", "handleGetAllDoctorInOneClinic");
+
+// Define app routes.
+$app->get('/', function (Request $request, Response $response, $args) {
+    //var_dump($args);
+    // $response->getBody()->write("Hello!" . $args["your_name"]);
+    $response->getBody()->write("Hello!");
+    return $response;
+});
 
 // Run the app.
 $app->run();

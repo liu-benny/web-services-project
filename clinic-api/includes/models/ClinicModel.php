@@ -1,6 +1,7 @@
 <?php
 
 class ClinicModel extends BaseModel{
+    private $department_table = "department";
 
     /**
      * A model class for the `clinic` database table.
@@ -45,8 +46,53 @@ class ClinicModel extends BaseModel{
      */
     public function deleteClinic($where){
         $clinic = $this->delete("clinic",$where);
-        return $clinics;
+        return $clinic;
+    }
+
+    /**
+     * Get all departments of a given clinic
+     * @return array A list of departments
+     */
+    public function getAllDepartments($clinic_id){ 
+        $sql = "SELECT * FROM department WHERE clinic_id = ?";
+        $data = $this->run($sql, [$clinic_id])->fetchAll();
+        return $data;
+    }
+
+    /**
+     * Create one or more departments for a given clinic
+     * @return 
+     */
+    public function createDepartments($data) {
+        $data = $this->insert($this->department_table, $data);
+        return $data;
+    }
+
+    /**
+     * Update one or more given department in a given clinic
+     * @return
+     */
+    public function updateDepartment($departments) {
+        $data = $this->update($this->department_table, $departments['data'], $departments['where']);
+        return $data;
+    }
+
+    /**
+     * Delete a given department in a given clinic
+     */
+    public function deleteDepartment($department_id) {
+        $where = ['department_id' => $department_id];
+        $data = $this->delete($this->department_table, $where);
+        return $data;
+    }
+
+    /**
+     * Get all doctors in a given clinic
+     */
+    public function getAllDoctors($clinic_id) {
+        $sql = "SELECT * FROM doctor JOIN department ON doctor.department_id = department.department_id WHERE department.clinic_id = ?;";
+        $data = $this->run($sql, [$clinic_id])->fetchAll();
+        return $data;
     }
 }
-
 ?>
