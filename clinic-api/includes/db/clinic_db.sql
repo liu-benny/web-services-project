@@ -83,14 +83,14 @@ CREATE TABLE `days_of_week` (
 CREATE TABLE `department` (
   `department_id` int(11) NOT NULL,
   `department_name` varchar(255) NOT NULL,
-  `clinc_id` int(11) NOT NULL
+  `clinic_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `department`
 --
 
-INSERT INTO `department` (`department_id`, `department_name`, `clinc_id`) VALUES
+INSERT INTO `department` (`department_id`, `department_name`, `clinic_id`) VALUES
 (1, 'Private Family Medicine', 1),
 (2, 'Private Dermatologist', 1),
 (3, 'Women’s Health', 1),
@@ -237,7 +237,7 @@ ALTER TABLE `days_of_week`
 --
 ALTER TABLE `department`
   ADD PRIMARY KEY (`department_id`),
-  ADD KEY `clinc_id` (`clinc_id`);
+  ADD KEY `clinic_id` (`clinic_id`);
 
 --
 -- Indexes for table `doctor`
@@ -273,25 +273,25 @@ ALTER TABLE `appointment`
 -- AUTO_INCREMENT for table `clinic`
 --
 ALTER TABLE `clinic`
-  MODIFY `clinic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `clinic_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `schedule`
@@ -307,33 +307,33 @@ ALTER TABLE `schedule`
 -- Constraints for table `appointment`
 --
 ALTER TABLE `appointment`
-  ADD CONSTRAINT `FK_appointment_clinic_id` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`),
-  ADD CONSTRAINT `FK_appointment_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`),
-  ADD CONSTRAINT `FK_appointment_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`);
+  ADD CONSTRAINT `FK_appointment_clinic_id` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_appointment_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_appointment_patient_id` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `days_of_week`
 --
 ALTER TABLE `days_of_week`
-  ADD CONSTRAINT `FK_days_of_week_schedule_id` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`schedule_id`);
+  ADD CONSTRAINT `FK_days_of_week_schedule_id` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`schedule_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `department`
 --
 ALTER TABLE `department`
-  ADD CONSTRAINT `FK_department_clinic_id` FOREIGN KEY (`clinc_id`) REFERENCES `clinic` (`clinic_id`);
+  ADD CONSTRAINT `FK_department_clinic_id` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `doctor`
 --
 ALTER TABLE `doctor`
-  ADD CONSTRAINT `FK_doctor_department_id` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`);
+  ADD CONSTRAINT `FK_doctor_department_id` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `schedule`
 --
 ALTER TABLE `schedule`
-  ADD CONSTRAINT `FK_schedule_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`);
+  ADD CONSTRAINT `FK_schedule_doctor_id` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
