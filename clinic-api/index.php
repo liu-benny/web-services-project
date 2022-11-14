@@ -32,6 +32,7 @@ require_once './includes/routes/clinics_routes.php';
 // Define app routes.
 $app->get("/clinics","handleGetAllClinics");
 $app->post("/clinics","handleCreateClinics");
+$app->put("/clinics","handleUpdateClinics");
 
 // Run the app.
 $app->run();
