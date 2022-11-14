@@ -103,8 +103,8 @@ function handleUpdateClinics(Request $request,Response $response, array $args){
                 return $response->withStatus($response_code);
             }
             else{
-                $clinics = array("clinic_id" => $clinic['clinic_id'],"clinic_name" => $clinic['clinic_name'] , "clinic_address" => $clinic['clinic_address'],'clinic_details' => $clinic['clinic_details']);
-                $clinic_model->updateClinic($clinic);
+                $clinics = array("clinic_name" => $clinic['clinic_name'] , "clinic_address" => $clinic['clinic_address'],'clinic_details' => $clinic['clinic_details']);
+                $clinic_model->updateClinic($clinics,array("clinic_id" => $clinic['clinic_id']));
             }
             
         }
