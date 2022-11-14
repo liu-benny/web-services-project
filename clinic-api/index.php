@@ -24,6 +24,7 @@ $app->setBasePath("/web-services-project/clinic-api");
 //-- Step 5) Include the files containing the definitions of the callbacks.
 require_once './includes/routes/clinics_routes.php';
 require_once './includes/routes/doctors_routes.php';
+require_once './includes/routes/patients_routes.php';
 
 //-- Step 6)
 // TODO: And here we define app routes. 
@@ -43,6 +44,12 @@ $app->get("/doctors/{doctor_id}","handleGetDoctorById");
 $app->post("/doctors","handleCreateDoctors");
 $app->put("/doctors","handleUpdateDoctors");
 $app->delete("/doctors/{doctor_id}","handleDeleteDoctor");
+
+// URI: /patients
+$app->get("/patients","handleGetAllPatients");
+$app->post("/patients","handleCreatePatients");
+$app->put("/patients","handleUpdatePatients");
+$app->delete("/patients/{patient_id}","handleDeletePatient");
 
 // Define app routes.
 $app->get('/', function (Request $request, Response $response, $args) {

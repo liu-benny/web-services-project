@@ -178,20 +178,16 @@ function handleDeleteDoctor(Request $request, Response $response, array $args) {
     $response_code = HTTP_OK;
     $doctor_model = new DoctorModel();
 
-    // Retreive the artist if from the request's URI.
     $doctor_id = $args["doctor_id"];
 
     if (isset($doctor_id)) {
-        // Fetch the info about the specified artist.
         $rowsCount = $doctor_model->deleteDoctor($doctor_id);
         if (!$rowsCount) {
-            // No matches found?
             $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified doctor.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
-    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
     //--
     //-- We verify the requested resource representation.    
