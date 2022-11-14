@@ -14,7 +14,7 @@ class DoctorModel extends BaseModel{
 
     /**
      * Retrieve all doctors from the `doctors` table.
-     * @return object A list of clinics. 
+     * @return object . 
      */
     public function getAllDoctors() {
         $sql = "SELECT * FROM doctor";
