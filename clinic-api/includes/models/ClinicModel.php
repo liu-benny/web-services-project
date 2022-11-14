@@ -5,7 +5,7 @@ class ClinicModel extends BaseModel{
 
     /**
      * A model class for the `clinic` database table.
-     * It exposes operations that can be performed on artists records.
+     * It exposes operations that can be performed on doctors records.
      */
     function __construct() {
         // Call the parent class and initialize the database connection settings.

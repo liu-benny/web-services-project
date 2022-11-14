@@ -142,7 +142,7 @@ function handleGetAllDepartments(Request $request, Response $response, array $ar
     if (isset($clinic_id)) {
         $departments = $clinic_model->getAllDepartments($clinic_id);
         if (!$departments) {
-            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified artist.");
+            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
@@ -251,20 +251,16 @@ function handleDeleteDepartment(Request $request, Response $response, array $arg
     $response_code = HTTP_OK;
     $clinic_model = new ClinicModel();
 
-    // Retreive the artist if from the request's URI.
     $department_id = $args["department_id"];
 
     if (isset($department_id)) {
-        // Fetch the info about the specified artist.
         $rowsCount = $clinic_model->deleteDepartment($department_id);
         if (!$rowsCount) {
-            // No matches found?
-            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified artist.");
+            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified department.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
-    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
     //--
     //-- We verify the requested resource representation.    
@@ -293,7 +289,7 @@ function handleGetAllDoctorInOneClinic(Request $request, Response $response, arr
     if (isset($clinic_id)) {
         $departments = $clinic_model->getAllDoctors($clinic_id);
         if (!$departments) {
-            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified artist.");
+            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified clinic.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
