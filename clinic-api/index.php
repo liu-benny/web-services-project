@@ -32,6 +32,7 @@ require_once './includes/routes/patients_routes.php';
 $app->get("/clinics","handleGetAllClinics");
 $app->post("/clinics","handleCreateClinics");
 $app->put("/clinics","handleUpdateClinics");
+$app->delete("/clinics/{clinic_id}","handleDeleteClinic");
 $app->get("/clinics/{clinic_id}/departments", "handleGetAllDepartments");
 $app->post("/clinics/{clinic_id}/departments", "handleCreateDepartments");
 $app->put("/clinics/{clinic_id}/departments", "handleUpdateDepartments");
@@ -50,14 +51,6 @@ $app->get("/patients","handleGetAllPatients");
 $app->post("/patients","handleCreatePatients");
 $app->put("/patients","handleUpdatePatients");
 $app->delete("/patients/{patient_id}","handleDeletePatient");
-
-// Define app routes.
-$app->get('/', function (Request $request, Response $response, $args) {
-    //var_dump($args);
-    // $response->getBody()->write("Hello!" . $args["your_name"]);
-    $response->getBody()->write("Hello!");
-    return $response;
-});
 
 // Run the app.
 $app->run();

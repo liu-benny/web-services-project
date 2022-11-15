@@ -81,6 +81,7 @@ function handleCreateClinics(Request $request,Response $response, array $args){
     return $response->withStatus($response_code);
 }
 
+// Callback for HTTP PUT /clinics
 function handleUpdateClinics(Request $request,Response $response, array $args){
     
     $clinics = array();
@@ -126,6 +127,39 @@ function handleUpdateClinics(Request $request,Response $response, array $args){
     $response->getBody()->write($response_data);
     return $response->withStatus($response_code);
 }
+
+
+// // Callback for HTTP DELETE /clinics
+function handleDeleteClinic(Request $request,Response $response, array $args){
+    
+    $clinic = array();
+    $response_data = array();
+    $response_code = HTTP_OK;
+    $clinic_model = new ClinicModel();
+
+    $clinic_id = $args["clinic_id"];
+
+    if (isset($clinic_id)) {
+        $clinic = $clinic_model->deleteClinic($clinic_id);
+        if (!$clinic) {
+            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified department.");
+            $response->getBody()->write($response_data);
+            return $response->withStatus(HTTP_NOT_FOUND);
+        }
+    }
+    $requested_format = $request->getHeader('Accept');
+    //--
+    //-- We verify the requested resource representation.    
+    if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
+        $response_data = json_encode($clinic, JSON_INVALID_UTF8_SUBSTITUTE);
+    } else {
+        $response_data = json_encode(getErrorUnsupportedFormat());
+        $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
+    }
+    $response->getBody()->write($response_data);
+    return $response->withStatus($response_code);
+}
+
 
 /**
  * Get all departments of a given clinic
