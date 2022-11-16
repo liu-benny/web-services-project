@@ -38,6 +38,7 @@ $app->post("/clinics/{clinic_id}/departments", "handleCreateDepartments");
 $app->put("/clinics/{clinic_id}/departments", "handleUpdateDepartments");
 $app->delete("/clinics/{clinic_id}/departments/{department_id}", "handleDeleteDepartment");
 $app->get("/clinics/{clinic_id}/doctors", "handleGetAllDoctorInOneClinic");
+$app->get("/clinics/{clinic_id}/appointments","handleGetAllAppointmentsByClinicId");
 
 // URI: /doctors
 $app->get("/doctors","handleGetAllDoctors");
@@ -51,6 +52,8 @@ $app->get("/patients","handleGetAllPatients");
 $app->post("/patients","handleCreatePatients");
 $app->put("/patients","handleUpdatePatients");
 $app->delete("/patients/{patient_id}","handleDeletePatient");
+
+
 
 // Run the app.
 $app->run();

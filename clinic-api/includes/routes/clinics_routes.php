@@ -142,7 +142,7 @@ function handleDeleteClinic(Request $request,Response $response, array $args){
     if (isset($clinic_id)) {
         $clinic = $clinic_model->deleteClinic($clinic_id);
         if (!$clinic) {
-            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified department.");
+            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified clinic.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
