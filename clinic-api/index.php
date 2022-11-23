@@ -25,6 +25,7 @@ $app->setBasePath("/web-services-project/clinic-api");
 require_once './includes/routes/clinics_routes.php';
 require_once './includes/routes/doctors_routes.php';
 require_once './includes/routes/patients_routes.php';
+require_once './includes/routes/appointment_routes.php';
 
 //-- Step 6)
 // TODO: And here we define app routes. 
