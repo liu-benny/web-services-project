@@ -51,7 +51,7 @@ function handleGetAppointmentsByClinicAndPatientId(Request $request, Response $r
     $patient_id = $args['patient_id'];
 
     if (isset($clinic_id) && isset($patient_id)) {
-        $appointments = $appointment_model->getAppointmentsByClinicId($clinic_id,$patient_id);
+        $appointments = $appointment_model->getAppointmentsByClinicAndPatientId($clinic_id,$patient_id);
         if (!$appointments) {
             $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified clinic and/or patient.");
             $response->getBody()->write($response_data);
