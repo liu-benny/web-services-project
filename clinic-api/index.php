@@ -25,6 +25,7 @@ $app->setBasePath("/web-services-project/clinic-api");
 require_once './includes/routes/clinics_routes.php';
 require_once './includes/routes/doctors_routes.php';
 require_once './includes/routes/patients_routes.php';
+require_once './includes/routes/appointment_routes.php';
 
 //-- Step 6)
 // TODO: And here we define app routes. 
@@ -38,7 +39,8 @@ $app->post("/clinics/{clinic_id}/departments", "handleCreateDepartments");
 $app->put("/clinics/{clinic_id}/departments", "handleUpdateDepartments");
 $app->delete("/clinics/{clinic_id}/departments/{department_id}", "handleDeleteDepartment");
 $app->get("/clinics/{clinic_id}/doctors", "handleGetAllDoctorInOneClinic");
-$app->get("/clinics/{clinic_id}/appointments","handleGetAllAppointmentsByClinicId");
+$app->get("/clinics/{clinic_id}/appointments","handleGetAppointmentsByClinicId");
+$app->get("/clinics/{clinic_id}/patients/{patient_id}/appointments","handleGetAppointmentsByClinicAndPatientId");
 
 // URI: /doctors
 $app->get("/doctors","handleGetAllDoctors");

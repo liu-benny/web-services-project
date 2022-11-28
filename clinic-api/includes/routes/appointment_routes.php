@@ -8,8 +8,8 @@ require_once __DIR__ . './../models/BaseModel.php';
 require_once __DIR__ . './../models/AppointmentModel.php';
 
 // Callback for HTTP GET /clinics/{clinic_id}/appointments
-function handleGetAllAppointmentsByClinicId(Request $request, Response $response, array $args){
-    $appoiintments = array();
+function handleGetAppointmentsByClinicId(Request $request, Response $response, array $args){
+    $appointments = array();
     $response_data = array();
     $response_code = HTTP_OK;
 
@@ -18,8 +18,8 @@ function handleGetAllAppointmentsByClinicId(Request $request, Response $response
     $clinic_id = $args['clinic_id'];
 
     if (isset($clinic_id)) {
-        $clinic = $clinic_model->getAllAppointmentsByClinicId($clinic_id);
-        if (!$clinic) {
+        $appointments = $appointment_model->getAppointmentsByClinicId($clinic_id);
+        if (!$appointments) {
             $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified clinic.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
@@ -30,7 +30,40 @@ function handleGetAllAppointmentsByClinicId(Request $request, Response $response
     //--
     //-- We verify the requested resource representation.    
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
-        $response_data = json_encode($clinic, JSON_INVALID_UTF8_SUBSTITUTE);
+        $response_data = json_encode($appointments, JSON_INVALID_UTF8_SUBSTITUTE);
+    } else {
+        $response_data = json_encode(getErrorUnsupportedFormat());
+        $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
+    }
+    $response->getBody()->write($response_data);
+    return $response->withStatus($response_code);
+}
+
+// Callback for HTTP GET /clinics/{clinic_id}/patients/{patient_id}/appointments
+function handleGetAppointmentsByClinicAndPatientId(Request $request, Response $response, array $args){
+    $appointments = array();
+    $response_data = array();
+    $response_code = HTTP_OK;
+
+    $appointment_model = new AppointmentModel();
+
+    $clinic_id = $args['clinic_id'];
+    $patient_id = $args['patient_id'];
+
+    if (isset($clinic_id) && isset($patient_id)) {
+        $appointments = $appointment_model->getAppointmentsByClinicId($clinic_id,$patient_id);
+        if (!$appointments) {
+            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified clinic and/or patient.");
+            $response->getBody()->write($response_data);
+            return $response->withStatus(HTTP_NOT_FOUND);
+        }
+    }
+    $requested_format = $request->getHeader('Accept');
+
+    //--
+    //-- We verify the requested resource representation.    
+    if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
+        $response_data = json_encode($appointments, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
         $response_data = json_encode(getErrorUnsupportedFormat());
         $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
