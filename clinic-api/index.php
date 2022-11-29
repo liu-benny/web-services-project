@@ -47,6 +47,7 @@ $app->get("/clinics/{clinic_id}/patients/{patient_id}/appointments","handleGetAp
 
 // URI: /doctors
 $app->get("/doctors","handleGetAllDoctors");
+$app->get("/doctors/{doctor_id}/schedule","handleGetDoctorSchedule");
 $app->get("/doctors/{doctor_id}","handleGetDoctorById");
 $app->post("/doctors","handleCreateDoctors");
 $app->put("/doctors","handleUpdateDoctors");

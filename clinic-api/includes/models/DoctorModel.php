@@ -58,5 +58,18 @@ class DoctorModel extends BaseModel{
         $data = $this->delete($this->doctor_table, $where);
         return $data;
     }
-}
+
+    /**
+     * Get a schedule record of a specified doctor
+     */
+    public function getDoctorSchedule($doctor_id) {
+        $sql = "SELECT doctor.doctor_id, schedule.schedule_id, schedule.is_available, days_of_week.day_of_week, days_of_week.time_from, days_of_week.time_to 
+                FROM doctor JOIN schedule ON doctor.doctor_id = schedule.schedule_id 
+                            JOIN days_of_week ON schedule.schedule_id = schedule.schedule_id
+                            WHERE doctor.doctor_id = ?
+                            AND schedule.schedule_id = days_of_week.schedule_id";
+        $data = $this->run($sql, [$doctor_id])->fetch();
+        return $data;
+    }
+ }
 ?>

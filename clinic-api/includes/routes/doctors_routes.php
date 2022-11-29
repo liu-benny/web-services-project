@@ -47,14 +47,14 @@ function handleGetDoctorById(Request $request, Response $response, array $args)
     $response_code = HTTP_OK;
     $doctor_model = new DoctorModel();
 
-    // Retreive the artist id from the request's URI.
+    // Retreive the doctor id from the request's URI.
     $doctor_id = $args["doctor_id"];
     if (isset($doctor_id)) {
-        // Fetch the info about the specified artist.
+        // Fetch the info about the specified doctor.
         $doctor_info = $doctor_model->getDoctorById($doctor_id);
         if (!$doctor_info) {
             // No matches found?
-            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified artist.");
+            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified doctor.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
@@ -193,6 +193,42 @@ function handleDeleteDoctor(Request $request, Response $response, array $args) {
     //-- We verify the requested resource representation.    
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($rowsCount, JSON_INVALID_UTF8_SUBSTITUTE);
+    } else {
+        $response_data = json_encode(getErrorUnsupportedFormat());
+        $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
+    }
+    $response->getBody()->write($response_data);
+    return $response->withStatus($response_code);
+}
+
+/**
+ * Get a schedule record of a specified doctor
+ * URI: /doctors/{doctor_id}/schedule
+ */
+function handleGetDoctorSchedule(Request $request, Response $response, array $args) {
+    $doctor_schedule = array();
+    $response_data = array();
+    $response_code = HTTP_OK;
+    $doctor_model = new DoctorModel();
+
+    // Retreive the doctor id from the request's URI.
+    $doctor_id = $args["doctor_id"];
+    if (isset($doctor_id)) {
+        // Fetch the info about the specified doctor.
+        $doctor_schedule = $doctor_model->getDoctorSchedule($doctor_id);
+        if (!$doctor_schedule) {
+            // No matches found?
+            $response_data = makeCustomJSONError("resourceNotFound", "No schedule was found for the specified doctor.");
+            $response->getBody()->write($response_data);
+            return $response->withStatus(HTTP_NOT_FOUND);
+        }
+    }
+    // Handle serve-side content negotiation and produce the requested representation.    
+    $requested_format = $request->getHeader('Accept');
+    //--
+    //-- We verify the requested resource representation.    
+    if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
+        $response_data = json_encode($doctor_schedule, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
         $response_data = json_encode(getErrorUnsupportedFormat());
         $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
