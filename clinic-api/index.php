@@ -57,6 +57,7 @@ $app->delete("/doctors/{doctor_id}","handleDeleteDoctor");
 $app->get("/patients","handleGetAllPatients");
 $app->post("/patients","handleCreatePatients");
 $app->put("/patients","handleUpdatePatients");
+$app->get("/patients/{patient_id}","handleGetPatientById");
 $app->delete("/patients/{patient_id}","handleDeletePatient");
 
 //URI: /schedules

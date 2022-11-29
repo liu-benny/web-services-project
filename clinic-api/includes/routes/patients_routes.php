@@ -8,6 +8,41 @@ require_once __DIR__ . './../models/BaseModel.php';
 require_once __DIR__ . './../models/PatientModel.php';
 
 /**
+ * Retrieve a patient from the `patient` table.
+ * URI: /patients/{patient_id}
+ */
+function handleGetPatientById(Request $request, Response $response, array $args) {
+    $patient = array();
+    $response_data = array();
+    $response_code = HTTP_OK;
+
+    $patient_model = new PatientModel();
+
+    $patient_id = $args['patient_id'];
+
+    if (isset($patient_id)) {
+        $patient = $patient_model->getPatientById($patient_id);
+        if (!$patient) {
+            $response_data = makeCustomJSONError("resourceNotFound", "No record was found for the specified patient.");
+            $response->getBody()->write($response_data);
+            return $response->withStatus(HTTP_NOT_FOUND);
+        }
+    }
+    $requested_format = $request->getHeader('Accept');
+
+    //--
+    //-- We verify the requested resource representation.    
+    if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
+        $response_data = json_encode($patient, JSON_INVALID_UTF8_SUBSTITUTE);
+    } else {
+        $response_data = json_encode(getErrorUnsupportedFormat());
+        $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
+    }
+    $response->getBody()->write($response_data);
+    return $response->withStatus($response_code);
+}
+
+/**
  * Retrieve all patients from the `patient` table.
  * URI: /patients
  */

@@ -13,6 +13,16 @@ class PatientModel extends BaseModel{
     }
 
     /**
+     * Retrieve a patient from the `patient` table .
+     * @return object A patients. 
+     */
+    public function getPatientById($patient_id) {
+        $sql = "SELECT * FROM patient WHERE patient_id = :patient_id";
+        $data = $this->run($sql, [$patient_id])->fetch();
+        return $data;
+    }
+
+    /**
      * Retrieve all doctors from the `patient` table.
      * @return object A list of patients. 
      */
