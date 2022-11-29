@@ -20,7 +20,7 @@ function handleGetAllDoctors(Request $request, Response $response, array $args) 
 
     $doctors = $doctor_model->getAllDoctors();
     if (!$doctors) {
-        $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found.");
+        $response_data = makeCustomJSONError("resourceNotFound", "No record was found.");
         $response->getBody()->write($response_data);
         return $response->withStatus(HTTP_NOT_FOUND);
     }

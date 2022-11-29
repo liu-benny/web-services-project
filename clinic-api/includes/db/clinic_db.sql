@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2022 at 08:07 PM
+-- Generation Time: Nov 28, 2022 at 10:51 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -70,9 +70,125 @@ INSERT INTO `clinic` (`clinic_id`, `clinic_name`, `clinic_address`, `clinic_deta
 CREATE TABLE `days_of_week` (
   `schedule_id` int(11) NOT NULL,
   `day_of_week` varchar(255) NOT NULL,
-  `time_from` datetime NOT NULL,
-  `time_to` datetime NOT NULL
+  `time_from` time NOT NULL,
+  `time_to` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `days_of_week`
+--
+
+INSERT INTO `days_of_week` (`schedule_id`, `day_of_week`, `time_from`, `time_to`) VALUES
+(1, 'Monday', '08:00:00', '18:00:00'),
+(1, 'Tuesday', '08:00:00', '18:00:00'),
+(1, 'Wednesday', '08:00:00', '18:00:00'),
+(1, 'Thursday', '08:00:00', '18:00:00'),
+(1, 'Friday', '08:00:00', '18:00:00'),
+(2, 'Monday', '08:00:00', '18:00:00'),
+(2, 'Tuesday', '08:00:00', '18:00:00'),
+(2, 'Thursday', '08:00:00', '18:00:00'),
+(2, 'Friday', '08:00:00', '18:00:00'),
+(2, 'Saturday', '08:00:00', '18:00:00'),
+(3, 'Monday', '08:00:00', '18:00:00'),
+(3, 'Tuesday', '08:00:00', '18:00:00'),
+(3, 'Wednesday', '08:00:00', '18:00:00'),
+(3, 'Thursday', '08:00:00', '18:00:00'),
+(3, 'Saturday', '08:00:00', '18:00:00'),
+(4, 'Tuesday', '08:00:00', '18:00:00'),
+(4, 'Wednesday', '08:00:00', '18:00:00'),
+(4, 'Thursday', '08:00:00', '18:00:00'),
+(4, 'Friday', '08:00:00', '18:00:00'),
+(4, 'Saturday', '08:00:00', '18:00:00'),
+(5, 'Monday', '08:00:00', '18:00:00'),
+(5, 'Tuesday', '08:00:00', '18:00:00'),
+(5, 'Wednesday', '08:00:00', '18:00:00'),
+(5, 'Thursday', '08:00:00', '18:00:00'),
+(5, 'Friday', '08:00:00', '18:00:00'),
+(6, 'Monday', '08:00:00', '18:00:00'),
+(6, 'Tuesday', '08:00:00', '18:00:00'),
+(6, 'Thursday', '08:00:00', '18:00:00'),
+(6, 'Friday', '08:00:00', '18:00:00'),
+(6, 'Saturday', '08:00:00', '18:00:00'),
+(7, 'Monday', '08:00:00', '18:00:00'),
+(7, 'Wednesday', '08:00:00', '18:00:00'),
+(7, 'Thursday', '08:00:00', '18:00:00'),
+(7, 'Friday', '08:00:00', '18:00:00'),
+(7, 'Saturday', '08:00:00', '18:00:00'),
+(8, 'Monday', '08:00:00', '18:00:00'),
+(8, 'Tuesday', '08:00:00', '18:00:00'),
+(8, 'Wednesday', '08:00:00', '18:00:00'),
+(8, 'Thursday', '08:00:00', '18:00:00'),
+(9, 'Friday', '08:00:00', '18:00:00'),
+(9, 'Monday', '08:00:00', '18:00:00'),
+(9, 'Tuesday', '08:00:00', '18:00:00'),
+(9, 'Wednesday', '08:00:00', '18:00:00'),
+(9, 'Thursday', '08:00:00', '18:00:00'),
+(9, 'Saturday', '08:00:00', '18:00:00'),
+(11, 'Tuesday', '08:00:00', '18:00:00'),
+(10, 'Wednesday', '08:00:00', '18:00:00'),
+(10, 'Thursday', '08:00:00', '18:00:00'),
+(10, 'Friday', '08:00:00', '18:00:00'),
+(10, 'Saturday', '08:00:00', '18:00:00'),
+(11, 'Monday', '08:00:00', '18:00:00'),
+(11, 'Tuesday', '08:00:00', '18:00:00'),
+(11, 'Wednesday', '08:00:00', '18:00:00'),
+(11, 'Thursday', '08:00:00', '18:00:00'),
+(11, 'Friday', '08:00:00', '18:00:00'),
+(12, 'Tuesday', '08:00:00', '18:00:00'),
+(12, 'Wednesday', '08:00:00', '18:00:00'),
+(12, 'Thursday', '08:00:00', '18:00:00'),
+(12, 'Friday', '08:00:00', '18:00:00'),
+(12, 'Saturday', '08:00:00', '18:00:00'),
+(13, 'Monday', '08:00:00', '18:00:00'),
+(13, 'Tuesday', '08:00:00', '18:00:00'),
+(13, 'Wednesday', '08:00:00', '18:00:00'),
+(13, 'Thursday', '08:00:00', '18:00:00'),
+(13, 'Friday', '08:00:00', '18:00:00'),
+(14, 'Monday', '08:00:00', '18:00:00'),
+(14, 'Tuesday', '08:00:00', '18:00:00'),
+(14, 'Thursday', '08:00:00', '18:00:00'),
+(14, 'Friday', '08:00:00', '18:00:00'),
+(14, 'Saturday', '08:00:00', '18:00:00'),
+(15, 'Monday', '08:00:00', '18:00:00'),
+(15, 'Tuesday', '08:00:00', '18:00:00'),
+(15, 'Wednesday', '08:00:00', '18:00:00'),
+(15, 'Thursday', '08:00:00', '18:00:00'),
+(15, 'Saturday', '08:00:00', '18:00:00'),
+(16, 'Monday', '08:00:00', '18:00:00'),
+(16, 'Wednesday', '08:00:00', '18:00:00'),
+(16, 'Thursday', '08:00:00', '18:00:00'),
+(16, 'Friday', '08:00:00', '18:00:00'),
+(16, 'Saturday', '08:00:00', '18:00:00'),
+(17, 'Monday', '08:00:00', '18:00:00'),
+(17, 'Tuesday', '08:00:00', '18:00:00'),
+(17, 'Wednesday', '08:00:00', '18:00:00'),
+(17, 'Thursday', '08:00:00', '18:00:00'),
+(17, 'Friday', '08:00:00', '18:00:00'),
+(18, '', '08:00:00', '18:00:00'),
+(18, '', '08:00:00', '18:00:00'),
+(18, '', '08:00:00', '18:00:00'),
+(18, '', '08:00:00', '18:00:00'),
+(18, '', '08:00:00', '18:00:00'),
+(19, 'Monday', '08:00:00', '18:00:00'),
+(19, 'Tuesday', '08:00:00', '18:00:00'),
+(19, 'Wednesday', '08:00:00', '18:00:00'),
+(19, 'Thursday', '08:00:00', '18:00:00'),
+(19, 'Friday', '08:00:00', '18:00:00'),
+(20, 'Tuesday', '08:00:00', '18:00:00'),
+(20, 'Wednesday', '08:00:00', '18:00:00'),
+(20, 'Thursday', '08:00:00', '18:00:00'),
+(20, 'Friday', '08:00:00', '18:00:00'),
+(20, 'Saturday', '08:00:00', '18:00:00'),
+(21, 'Monday', '08:00:00', '18:00:00'),
+(21, 'Tuesday', '08:00:00', '18:00:00'),
+(21, 'Wednesday', '08:00:00', '18:00:00'),
+(21, 'Thursday', '08:00:00', '18:00:00'),
+(21, 'Friday', '08:00:00', '18:00:00'),
+(22, 'Monday', '08:00:00', '18:00:00'),
+(22, 'Tuesday', '08:00:00', '18:00:00'),
+(22, 'Wednesday', '08:00:00', '18:00:00'),
+(22, 'Friday', '08:00:00', '18:00:00'),
+(22, 'Saturday', '08:00:00', '18:00:00');
 
 -- --------------------------------------------------------
 
@@ -208,6 +324,34 @@ CREATE TABLE `schedule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`schedule_id`, `is_available`, `doctor_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 1, 6),
+(7, 1, 7),
+(8, 1, 8),
+(9, 1, 9),
+(10, 1, 10),
+(11, 1, 11),
+(12, 1, 12),
+(13, 0, 13),
+(14, 0, 14),
+(15, 1, 15),
+(16, 1, 16),
+(17, 1, 17),
+(18, 0, 18),
+(19, 1, 19),
+(20, 1, 20),
+(21, 0, 21),
+(22, 1, 22);
+
+--
 -- Indexes for dumped tables
 --
 
@@ -273,31 +417,31 @@ ALTER TABLE `appointment`
 -- AUTO_INCREMENT for table `clinic`
 --
 ALTER TABLE `clinic`
-  MODIFY `clinic_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `clinic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Constraints for dumped tables

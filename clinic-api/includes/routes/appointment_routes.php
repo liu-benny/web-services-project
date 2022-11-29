@@ -20,7 +20,7 @@ function handleGetAppointmentsByClinicId(Request $request, Response $response, a
     if (isset($clinic_id)) {
         $appointments = $appointment_model->getAppointmentsByClinicId($clinic_id);
         if (!$appointments) {
-            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified clinic.");
+            $response_data = makeCustomJSONError("resourceNotFound", "No record was found for the specified clinic.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }

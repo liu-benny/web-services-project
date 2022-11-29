@@ -26,10 +26,13 @@ require_once './includes/routes/clinics_routes.php';
 require_once './includes/routes/doctors_routes.php';
 require_once './includes/routes/patients_routes.php';
 require_once './includes/routes/appointment_routes.php';
+require_once './includes/routes/schedules_routes.php';
 
 //-- Step 6)
 // TODO: And here we define app routes. 
 // Define app routes.
+
+// URI: /clinics
 $app->get("/clinics","handleGetAllClinics");
 $app->post("/clinics","handleCreateClinics");
 $app->put("/clinics","handleUpdateClinics");
@@ -55,6 +58,8 @@ $app->post("/patients","handleCreatePatients");
 $app->put("/patients","handleUpdatePatients");
 $app->delete("/patients/{patient_id}","handleDeletePatient");
 
+//URI: /schedules
+$app->get("/schedules","handleGetAllSchedules");
 
 
 // Run the app.
