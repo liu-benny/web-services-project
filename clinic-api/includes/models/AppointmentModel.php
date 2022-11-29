@@ -67,6 +67,34 @@ class AppointmentModel extends BaseModel{
         return $data;
     }
 
+
+    /**
+     * Create one or multiple appointment
+     * @return
+     */
+    public function createAppointments($data){
+        $data = $this->insert("appointment", $data);
+        return $data;
+    }
+    
+    /**
+     * Update one or multiple appointment
+     * @return
+     */
+    public function updateAppointments($data ,$where){
+        $data = $this->update("appointment", $data, $where);
+        return $data;
+    }
+
+    /**
+     * Delete a record from the appointment table
+     */
+    public function deleteAppointment($appointment_id) {
+        $where = ['appointment_id' => $appointment_id];
+        $data = $this->delete("appointment", $where);
+        return $data;
+    }
+
 }
 
     

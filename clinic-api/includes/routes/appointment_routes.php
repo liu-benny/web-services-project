@@ -105,4 +105,129 @@ function handleGetAppointmentsByClinicAndPatientId(Request $request, Response $r
     return $response->withStatus($response_code);
 }
 
+// Callback for HTTP POST /patients/{patient_id}/appointments
+function handleCreateAppointmentByPatientId(Request $request, Response $response, array $args){
+
+    $appointments = array();
+    $response_data = array();
+    $response_code = HTTP_OK;
+    $appointment_model = new AppointmentModel();
+
+    $patient_id = $args['patient_id'];
+
+    $parse_data = $request->getParsedBody();
+
+    $requested_format = $request->getHeader('Accept');
+    
+    if ($requested_format[0] !== APP_MEDIA_TYPE_JSON) {
+        $response_data = json_encode(getErrorUnsupportedFormat());
+        $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
+
+        $response->getBody()->write($response_data);
+        return $response->withStatus($response_code);
+    }
+
+
+    if(isset($patient_id)){
+        
+        if($parse_data !== null){
+        
+            foreach($parse_data as $appointment){
+                if(!isset($appointment['doctor_id']) || !isset($appointment['clinic_id']) || !isset($appointment['time_from']) || !isset($appointment['time_to']) || !isset($appointment['status'])){
+                    $response_data = makeCustomJSONMessage("Error","Record(s) has not been created. Some fields are empty.");
+                    $response_code = HTTP_BAD_REQUEST;
+    
+                    $response->getBody()->write($response_data);
+                    return $response->withStatus($response_code);
+                }
+                else{
+                    $appointments = array("patient_id" => $patient_id,
+                                    "doctor_id" => $appointment['doctor_id'] , 
+                                    "clinic_id" => $appointment['clinic_id'],
+                                    "time_from" => $appointment['time_from'], 
+                                    "time_to" => $appointment['time_to'], 
+                                    "status" => $appointment['status']);
+                    $appointment_model->createAppointments($appointments);
+                }
+                
+            }
+    
+            $response_data = makeCustomJSONMessage("Created","Record(s) has been successfully created.");
+        }
+        else{
+    
+            $response_data = makeCustomJSONMessage("Error","Record(s) has not been created. All fields are empty.");
+            $response_code = HTTP_BAD_REQUEST;
+    
+        }
+    }
+
+
+    $response->getBody()->write($response_data);
+    return $response->withStatus($response_code);
+}
+
+// Callback for HTTP PUT /patients/{patient_id}/appointments
+function handleUpdateAppointmentByPatientId(Request $request,Response $response, array $args){
+    
+    $appointments = array();
+    $response_data = array();
+    $response_code = HTTP_OK;
+    $appointment_model = new AppointmentModel();
+
+    $patient_id = $args['patient_id'];
+
+    $parse_data = $request->getParsedBody();
+
+    $requested_format = $request->getHeader('Accept');
+    
+    if ($requested_format[0] !== APP_MEDIA_TYPE_JSON) {
+        $response_data = json_encode(getErrorUnsupportedFormat());
+        $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
+
+        $response->getBody()->write($response_data);
+        return $response->withStatus($response_code);
+    }
+
+
+    if(isset($patient_id)){
+        
+        if($parse_data !== null){
+            
+            
+                if(!isset($parse_data[0]['doctor_id']) || !isset($parse_data[0]['clinic_id']) || !isset($parse_data[0]['time_from']) || !isset($parse_data[0]['time_to']) || !isset($parse_data[0]['status'])){
+                    $response_data = makeCustomJSONMessage("Error","Record has not been updated. Some fields are empty.");
+                    $response_code = HTTP_BAD_REQUEST;
+    
+                    $response->getBody()->write($response_data);
+                    return $response->withStatus($response_code);
+                }
+                else{
+                    $appointments = array("patient_id" => $patient_id,
+                                    "doctor_id" => $parse_data[0]['doctor_id'] , 
+                                    "clinic_id" => $parse_data[0]['clinic_id'],
+                                    "time_from" => $parse_data[0]['time_from'], 
+                                    "time_to" => $parse_data[0]['time_to'], 
+                                    "status" => $parse_data[0]['status']);
+                    $appointment_model->updateAppointments($appointments,$patient_id);
+                }
+             
+            
+    
+            $response_data = makeCustomJSONMessage("Updated","Record has been successfully updated.");
+        }
+        else{
+    
+            $response_data = makeCustomJSONMessage("Error","Record has not been updated. All fields are empty.");
+            $response_code = HTTP_BAD_REQUEST;
+    
+        }
+    }
+
+
+    $response->getBody()->write($response_data);
+    return $response->withStatus($response_code);
+}
+
+
 ?>

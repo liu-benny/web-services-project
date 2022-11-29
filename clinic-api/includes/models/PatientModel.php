@@ -22,8 +22,6 @@ class PatientModel extends BaseModel{
         return $data;
     }
 
-    
-
     /**
      * Retrieve all doctors from the `patient` table.
      * @return object A list of patients. 
