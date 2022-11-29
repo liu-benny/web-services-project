@@ -60,6 +60,8 @@ $app->delete("/patients/{patient_id}","handleDeletePatient");
 
 //URI: /schedules
 $app->get("/schedules","handleGetAllSchedules");
+$app->post("/schedules","handleCreateSchedules");
+$app->put("/schedules","handleUpdateSchedules");
 $app->delete("/schedules/{schedule_id}","handleDeleteSchedule");
 
 

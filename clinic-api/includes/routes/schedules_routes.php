@@ -49,21 +49,15 @@ function handleCreateSchedules(Request $request, Response $response, array $args
     $schedule_model = new ScheduleModel();
 
     for ($index = 0; $index < count($data); $index++) {
-        $doctor = $data[$index];
-        $doctor_id = $doctor["doctor_id"];
-        $first_name = $doctor["first_name"];
-        $last_name = $doctor["last_name"];
-        $email = $doctor['email'];
-        $phone = $doctor['phone'];
-        $department_id = $doctor['department_id'];
+        $schedule = $data[$index];
+        $schedule_id = $schedule["schedule_id"];
+        $is_available = $schedule["is_available"];
+        $doctor_id = $schedule["doctor_id"];
 
         $new_schedule_records = array(
-            "doctor_id" => $doctor_id,
-            "first_name" => $first_name,
-            "last_name" => $last_name,
-            "email" => $email,
-            "phone" => $phone,
-            "department_id" => $department_id
+            "schedule_id" => $schedule_id,
+            "is_available" => $is_available,
+            "doctor_id" => $doctor_id
         );
 
         //-- We retrieve the key and its value
@@ -97,28 +91,24 @@ function handleUpdateSchedules(Request $request, Response $response, array $args
     $schedule_model = new ScheduleModel();
 
     for ($index = 0; $index < count($data); $index++) {
-        $doctor = $data[$index];
-        $doctor_id = $doctor["doctor_id"];
-        $first_name = $doctor["first_name"];
-        $last_name = $doctor["last_name"];
-        $email = $doctor['email'];
-        $phone = $doctor['phone'];
-        $department_id = $doctor['department_id'];
+        $schedule = $data[$index];
+        $schedule_id = $schedule["schedule_id"];
+        $is_available = $schedule["is_available"];
+        $doctor_id = $schedule["doctor_id"];
 
-        $updated_doctor_records = [
+        $new_schedule_records = array(
             'data' => [
-                "first_name" => $first_name,
-                "last_name" => $last_name,
-                "email" => $email,
-                "phone" => $phone,
-                "department_id" => $department_id,
+                "is_available" => $is_available,
+                "doctor_id" => $doctor_id
             ],
             'where' => [
-                "doctor_id" => $doctor_id
+                "schedule_id" => $schedule_id
             ]
-        ];
+        );
 
-        $schedule_model->updateSchedules($updated_doctor_records);
+        //-- We retrieve the key and its value
+        //-- We perform an UPDATE/CREATE SQL statement
+        $schedule_model->updateSchedules($new_schedule_records);
     }
 
     $requested_format = $request->getHeader('Accept');
