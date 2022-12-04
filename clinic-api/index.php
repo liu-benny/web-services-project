@@ -8,7 +8,6 @@ use Slim\Factory\AppFactory;
 require __DIR__ . '/vendor/autoload.php';
 require_once './includes/app_constants.php';
 require_once './includes/helpers/helper_functions.php';
-require_once './helpers/Paginator.php';
 
 //--Step 1) Instantiate App.
 $app = AppFactory::create();
@@ -28,6 +27,8 @@ require_once './includes/routes/doctors_routes.php';
 require_once './includes/routes/patients_routes.php';
 require_once './includes/routes/appointment_routes.php';
 require_once './includes/routes/schedules_routes.php';
+require_once './includes/helpers/Paginator.php';
+
 
 //-- Step 6)
 // TODO: And here we define app routes. 
