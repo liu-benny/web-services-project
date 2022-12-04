@@ -5,9 +5,14 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //var_dump($_SERVER["REQUEST_METHOD"]);
 use Slim\Factory\AppFactory;
 
-require __DIR__ . '/vendor/autoload.php';
+
 require_once './includes/app_constants.php';
 require_once './includes/helpers/helper_functions.php';
+require_once './includes/helpers/Paginator.php';
+require_once './includes/helpers/WebServiceInvoker.php';
+require_once './controllers/CanadaCasesController.php';
+
+require __DIR__ . '/vendor/autoload.php';
 
 //--Step 1) Instantiate App.
 $app = AppFactory::create();
@@ -27,6 +32,7 @@ require_once './includes/routes/doctors_routes.php';
 require_once './includes/routes/patients_routes.php';
 require_once './includes/routes/appointment_routes.php';
 require_once './includes/routes/schedules_routes.php';
+require_once './includes/routes/remote_resources_routes.php';
 require_once './includes/helpers/Paginator.php';
 
 
@@ -73,7 +79,7 @@ $app->post("/schedules/days_of_week","handleCreateSChedulesDetails");
 $app->put("/schedules","handleUpdateSchedules");
 $app->delete("/schedules/{schedule_id}","handleDeleteSchedule");
 
-
-
+//URI: /cases
+$app->get("/cases","handleGetCanadaCases");
 // Run the app.
 $app->run();

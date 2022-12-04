@@ -15,7 +15,7 @@ class WebServiceInvoker {
 
     protected function invoke($resource_uri) {
         $data = Array();
-        $client = new GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client();
         $response = $client->get($resource_uri, $this->request_options);
         if ($response->getStatusCode() === 200) {
             $data = $response->getBody()->getContents();
