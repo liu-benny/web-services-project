@@ -26,7 +26,7 @@ class AppointmentModel extends BaseModel{
                 JOIN patient ON patient.patient_id = app.patient_id 
                 JOIN doctor ON doctor.doctor_id = app.doctor_id 
                 WHERE app.clinic_id = :clinic_id ";
-        $data = $this->run($sql, [":clinic_id" => $clinic_id])->fetchAll();
+        $data = $this->paginate($sql, [":clinic_id" => $clinic_id]);
         return $data;
     }
 
