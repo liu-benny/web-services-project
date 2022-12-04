@@ -54,7 +54,23 @@ function handleGetAllPatients(Request $request, Response $response, array $args)
     $patient_model = new PatientModel();
 
 
-    $patients = $patient_model->getAllPatients();
+    // Retreive the query string parameter from the request's URI.
+    $filter_params = $request->getQueryParams();
+    if (isset($filter_params["first_name"])) {
+        // Fetch the list of artists matching the provided genre.
+        $patients = $patient_model->getPatientsByFirstName($filter_params["first_name"]);
+    }
+    else if (isset($filter_params["last_name"])) {
+        // Fetch the list of artists matching the provided mediaType.
+        $patients = $patient_model->getPatientsByLastName($filter_params["last_name"]);
+    }
+    else if (isset($filter_params["gender"])) {
+        // Fetch the list of artists matching the provided mediaType.
+        $patients = $patient_model->getPatientsByGender($filter_params["gender"]);
+    }
+    else
+        $patients = $patient_model->getAllPatients();
+
     if (!$patients) {
         $response_data = makeCustomJSONError("resourceNotFound", "No record was found.");
         $response->getBody()->write($response_data);

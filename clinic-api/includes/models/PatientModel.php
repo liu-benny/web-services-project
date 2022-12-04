@@ -62,27 +62,35 @@ class PatientModel extends BaseModel{
     /**
      * Summary of getPatientsByFirstName
      * @param mixed $first_name
-     * @return void
+     * @return 
      */
     public function getPatientsByFirstName($first_name)
     {
+        $sql = "SELECT * FROM patient WHERE first_name LIKE ?";
+        $data = $this->run($sql, ["%" . $first_name . "%"])->fetchAll();
+        return $data;
     }
 
     /**
      * Summary of getPatientsByLastName
      * @param mixed $last_name
-     * @return void
+     * @return 
      */
     public function getPatientsByLastName($last_name) {
-
+        $sql = "SELECT * FROM patient WHERE last_name LIKE ?";
+        $data = $this->run($sql, ["%" . $last_name . "%"])->fetchAll();
+        return $data;
     }
 
     /**
      * Summary of getPatientsByGender
      * @param mixed $gender
-     * @return void
+     * @return 
      */
     public function getPatientsByGender($gender)
     {
+        $sql = "SELECT * FROM patient WHERE gender LIKE ?";
+        $data = $this->run($sql, ["" . $gender . "%"])->fetchAll();
+        return $data;    
     }
  }
