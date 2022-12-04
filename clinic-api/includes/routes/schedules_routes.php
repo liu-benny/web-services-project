@@ -97,6 +97,8 @@ function handleCreateSchedules(Request $request, Response $response, array $args
     return $response->withStatus($response_code);
 }
 
+
+
 /**
  * Update one or multiple schedules
  * URI: /schedules
@@ -176,6 +178,10 @@ function handleDeleteSchedule(Request $request, Response $response, array $args)
     return $response->withStatus($response_code);
 }
 
+/**
+ * Create day_of_week records for one or more schedules
+ * URI: /schedules/days_of_week
+ */
 function handleCreateSChedulesDetails(Request $request, Response $response, array $args)
 {
     $response_data = array();
@@ -187,18 +193,20 @@ function handleCreateSChedulesDetails(Request $request, Response $response, arra
     for ($index = 0; $index < count($data); $index++) {
         $schedule = $data[$index];
         $schedule_id = $schedule["schedule_id"];
-        $is_available = $schedule["is_available"];
-        $doctor_id = $schedule["doctor_id"];
+        $day_of_week = $schedule["day_of_week"];
+        $time_from = $schedule["time_from"];
+        $time_to = $schedule["time_to"];
 
-        $new_schedule_records = array(
+        $new_schedule_details_records = array(
             "schedule_id" => $schedule_id,
-            "is_available" => $is_available,
-            "doctor_id" => $doctor_id
+            "day_of_week" => $day_of_week,
+            "time_from" => $time_from,
+            "time_to" => $time_to
         );
 
         //-- We retrieve the key and its value
         //-- We perform an UPDATE/CREATE SQL statement
-        $schedule_model->createSchedules($new_schedule_records);
+        $schedule_model->createScheduleDetails($new_schedule_details_records);
     }
 
     // Handle serve-side content negotiation and produce the requested representation.    
