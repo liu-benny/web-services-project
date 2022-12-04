@@ -25,10 +25,18 @@ function handleGetAppointmentsByClinicId(Request $request, Response $response, a
 
     $clinic_id = $args['clinic_id'];
 
+    $filter_params = $request->getQueryParams();
+
     if (isset($clinic_id)) {
-        $appointments = $appointment_model->getAppointmentsByClinicId($clinic_id);
+        if(isset($filter_params["date"])){
+            $appointments = $appointment_model->getAppointmentsByClinicAndDate($clinic_id, $filter_params["date"]);
+        }
+        else{
+            $appointments = $appointment_model->getAppointmentsByClinicId($clinic_id);
+
+        } 
         if (!$appointments) {
-            $response_data = makeCustomJSONError("resourceNotFound", "No record was found for the specified clinic.");
+            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified clinic and/or patient.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
@@ -108,7 +116,7 @@ function handleGetAppointmentsByClinicAndPatientId(Request $request, Response $r
     $filter_params = $request->getQueryParams();
 
     if (isset($clinic_id) && isset($patient_id)) {
-        if($filter_params["date"]){
+        if(isset($filter_params["date"])){
             $appointments = $appointment_model->getAppointmentsByClinicAndPatientIdAndDate($clinic_id, $patient_id, $filter_params["date"]);
         }
         else{
