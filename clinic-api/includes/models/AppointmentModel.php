@@ -44,7 +44,7 @@ class AppointmentModel extends BaseModel{
                 JOIN patient ON patient.patient_id = app.patient_id 
                 JOIN doctor ON doctor.doctor_id = app.doctor_id 
                 WHERE app.patient_id = :patient_id ";
-        $data = $this->run($sql, [":patient_id" => $patient_id])->fetchAll();
+        $data = $this->paginate($sql, [":patient_id" => $patient_id]);
         return $data;
     }
 
@@ -111,7 +111,7 @@ class AppointmentModel extends BaseModel{
                 JOIN doctor ON doctor.doctor_id = app.doctor_id 
                 WHERE app.patient_id = ? 
                 AND app.time_from LIKE ?";
-        $data = $this->run($sql, [$patient_id, ["" . $datetime . "%"]])->fetchAll();
+        $data = $this->paginate($sql, [$patient_id, ["" . $datetime . "%"]]);
         return $data;
     }
 }
