@@ -50,15 +50,21 @@ function handleGetAppointmentsByPatientId(Request $request, Response $response, 
 
     $patient_id = $args['patient_id'];
 
-    if (isset($patient_id)) {
+    $filter_params = $request->getQueryParams();
+
+    if (isset($patient_id, $filter_params["date"])) {
+        // Fetch the list of artists matching the provided genre.
+        $appointments = $appointment_model->getAppointmentsByDate($patient_id, $filter_params["date"]);
+    }   
+    else {
         $appointments = $appointment_model->getAppointmentsByPatientId($patient_id);
-        if (!$appointments) {
-            $response_data = makeCustomJSONError("resourceNotFound", "No record was found for the specified patient.");
-            $response->getBody()->write($response_data);
-            return $response->withStatus(HTTP_NOT_FOUND);
-        }
     }
     $requested_format = $request->getHeader('Accept');
+    if (!$appointments) {
+        $response_data = makeCustomJSONError("resourceNotFound", "No record was found for the specified patient.");
+        $response->getBody()->write($response_data);
+        return $response->withStatus(HTTP_NOT_FOUND);
+    }
 
     //--
     //-- We verify the requested resource representation.    
