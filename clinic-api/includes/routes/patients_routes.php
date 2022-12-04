@@ -10,6 +10,7 @@ require_once __DIR__ . './../models/PatientModel.php';
 /**
  * Retrieve a patient from the `patient` table.
  * URI: /patients/{patient_id}
+ * Filtering options: first_name, last_name, gender
  */
 function handleGetPatientById(Request $request, Response $response, array $args) {
     $patient = array();

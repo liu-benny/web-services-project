@@ -149,7 +149,6 @@ function handleCreateAppointmentByPatientId(Request $request, Response $response
                                     "status" => $appointment['status']);
                     $appointment_model->createAppointments($appointments);
                 }
-                
             }
     
             $response_data = makeCustomJSONMessage("Created","Record(s) has been successfully created.");

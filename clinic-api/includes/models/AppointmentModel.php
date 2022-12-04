@@ -95,8 +95,13 @@ class AppointmentModel extends BaseModel{
         return $data;
     }
 
+    /**
+     * Summary of getAppointmentsByDate
+     * @param mixed $date
+     * @return void
+     */
+    public function getAppointmentsByDate($date) {
+
+    }
 }
-
-    
-
 ?>

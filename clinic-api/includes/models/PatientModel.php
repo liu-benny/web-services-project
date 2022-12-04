@@ -58,4 +58,31 @@ class PatientModel extends BaseModel{
         $data = $this->delete($this->patient_table, $where);
         return $data;
     }
-}
+
+    /**
+     * Summary of getPatientsByFirstName
+     * @param mixed $first_name
+     * @return void
+     */
+    public function getPatientsByFirstName($first_name)
+    {
+    }
+
+    /**
+     * Summary of getPatientsByLastName
+     * @param mixed $last_name
+     * @return void
+     */
+    public function getPatientsByLastName($last_name) {
+
+    }
+
+    /**
+     * Summary of getPatientsByGender
+     * @param mixed $gender
+     * @return void
+     */
+    public function getPatientsByGender($gender)
+    {
+    }
+ }
