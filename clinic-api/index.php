@@ -77,7 +77,7 @@ $app->put("/clinics/{clinic_id}/appointments","handleUnsupportedOperation"); // 
 $app->delete("/clinics/{clinic_id}/appointments","handleUnsupportedOperation"); // -- This is not supported.
 
 //URI: /clinics/{clinic_id}/patients/{patient_id}/appointments
-$app->get("/clinics/{clinic_id}/patients/{patient_id}/appointments","handleUnsupportedOperation"); // -- This is not supported.
+$app->get("/clinics/{clinic_id}/patients/{patient_id}/appointments","handleGetAppointmentsByClinicAndPatientId");
 $app->post("/clinics/{clinic_id}/patients/{patient_id}/appointments","handleUnsupportedOperation"); // -- This is not supported.
 $app->put("/clinics/{clinic_id}/patients/{patient_id}/appointments","handleUnsupportedOperation"); // -- This is not supported.
 $app->delete("/clinics/{clinic_id}/patients/{patient_id}/appointments","handleUnsupportedOperation"); // -- This is not supported.
