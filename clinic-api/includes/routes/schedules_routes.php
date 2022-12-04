@@ -13,10 +13,19 @@ require_once __DIR__ . './../models/ScheduleModel.php';
  */
 function handleGetAllSchedules(Request $request, Response $response, array $args)
 {
+
+    $input_page_number = filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT);
+    $input_per_page = filter_input(INPUT_GET, "per_page", FILTER_VALIDATE_INT);
+    // Set default values if one of the following was invalid.
+    $page_number = ($input_page_number > 0) ? $input_page_number : 1;
+    $per_page = ($input_per_page > 0) ? $input_per_page : 10;
+
     $schedules = array();
     $response_data = array();
     $response_code = HTTP_OK;
     $schedule_model = new ScheduleModel();
+
+    $schedules = $schedule_model->getAllSchedules($page_number, $per_page);
 
     // Retreive the query string parameter from the request's URI.
     $filter_params = $request->getQueryParams();
