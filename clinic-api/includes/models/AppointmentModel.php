@@ -151,5 +151,35 @@ class AppointmentModel extends BaseModel{
         return $data;
     }
 
+    public function getAppointmentsByClinicAndFirstName($clinic_id, $first_name){
+        $sql = "SELECT app.appointment_id, app.time_from, app.time_to, 
+                app.clinic_id, clinic.clinic_name, clinic.clinic_address, 
+                app.patient_id, patient.first_name AS patient_first_name, patient.last_name AS patient_last_name, 
+                app.doctor_id, doctor.first_name AS doctor_first_name, doctor.last_name AS doctor_last_name 
+                FROM appointment AS app 
+                JOIN clinic ON clinic.clinic_id = app.clinic_id 
+                JOIN patient ON patient.patient_id = app.patient_id 
+                JOIN doctor ON doctor.doctor_id = app.doctor_id 
+                WHERE app.clinic_id = :clinic_id  
+                AND app.first_name LIKE :first_name";
+        $data = $this->paginate($sql, [":clinic_id" => $clinic_id, "first_name" => "%" . $first_name . "%"]);
+        return $data;
+    }
+
+    public function getAppointmentsByClinicAndLastName($clinic_id, $last_name){
+        $sql = "SELECT app.appointment_id, app.time_from, app.time_to, 
+                app.clinic_id, clinic.clinic_name, clinic.clinic_address, 
+                app.patient_id, patient.first_name AS patient_first_name, patient.last_name AS patient_last_name, 
+                app.doctor_id, doctor.first_name AS doctor_first_name, doctor.last_name AS doctor_last_name 
+                FROM appointment AS app 
+                JOIN clinic ON clinic.clinic_id = app.clinic_id 
+                JOIN patient ON patient.patient_id = app.patient_id 
+                JOIN doctor ON doctor.doctor_id = app.doctor_id 
+                WHERE app.clinic_id = :clinic_id  
+                AND app.last_name LIKE :last_name";
+        $data = $this->paginate($sql, [":clinic_id" => $clinic_id, "last_name" => "%" . $last_name . "%"]);
+        return $data;
+    }
+
 }
 ?>
