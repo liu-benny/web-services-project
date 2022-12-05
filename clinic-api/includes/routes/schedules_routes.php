@@ -25,7 +25,7 @@ function handleGetAllSchedules(Request $request, Response $response, array $args
     $response_code = HTTP_OK;
     $schedule_model = new ScheduleModel();
 
-    $schedules = $schedule_model->getAllSchedules($page_number, $per_page);
+    $schedule_model->setPaginationOptions($page_number, $per_page);
 
     // Retreive the query string parameter from the request's URI.
     $filter_params = $request->getQueryParams();
