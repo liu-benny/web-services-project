@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2022 at 10:51 PM
+-- Generation Time: Dec 05, 2022 at 06:33 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -36,6 +36,13 @@ CREATE TABLE `appointment` (
   `time_to` datetime NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `appointment`
+--
+
+INSERT INTO `appointment` (`appointment_id`, `patient_id`, `doctor_id`, `clinic_id`, `time_from`, `time_to`, `status`) VALUES
+(1, 1, 1, 1, '2022-12-06 14:00:00', '2022-12-06 14:30:00', '');
 
 -- --------------------------------------------------------
 
@@ -79,11 +86,6 @@ CREATE TABLE `days_of_week` (
 --
 
 INSERT INTO `days_of_week` (`schedule_id`, `day_of_week`, `time_from`, `time_to`) VALUES
-(1, 'Monday', '08:00:00', '18:00:00'),
-(1, 'Tuesday', '08:00:00', '18:00:00'),
-(1, 'Wednesday', '08:00:00', '18:00:00'),
-(1, 'Thursday', '08:00:00', '18:00:00'),
-(1, 'Friday', '08:00:00', '18:00:00'),
 (2, 'Monday', '08:00:00', '18:00:00'),
 (2, 'Tuesday', '08:00:00', '18:00:00'),
 (2, 'Thursday', '08:00:00', '18:00:00'),
@@ -164,11 +166,11 @@ INSERT INTO `days_of_week` (`schedule_id`, `day_of_week`, `time_from`, `time_to`
 (17, 'Wednesday', '08:00:00', '18:00:00'),
 (17, 'Thursday', '08:00:00', '18:00:00'),
 (17, 'Friday', '08:00:00', '18:00:00'),
-(18, '', '08:00:00', '18:00:00'),
-(18, '', '08:00:00', '18:00:00'),
-(18, '', '08:00:00', '18:00:00'),
-(18, '', '08:00:00', '18:00:00'),
-(18, '', '08:00:00', '18:00:00'),
+(18, 'Monday', '08:00:00', '18:00:00'),
+(18, 'Tuesday', '08:00:00', '18:00:00'),
+(18, 'Thursday', '08:00:00', '18:00:00'),
+(18, 'Friday', '08:00:00', '18:00:00'),
+(18, 'Saturday', '08:00:00', '18:00:00'),
 (19, 'Monday', '08:00:00', '18:00:00'),
 (19, 'Tuesday', '08:00:00', '18:00:00'),
 (19, 'Wednesday', '08:00:00', '18:00:00'),
@@ -188,7 +190,187 @@ INSERT INTO `days_of_week` (`schedule_id`, `day_of_week`, `time_from`, `time_to`
 (22, 'Tuesday', '08:00:00', '18:00:00'),
 (22, 'Wednesday', '08:00:00', '18:00:00'),
 (22, 'Friday', '08:00:00', '18:00:00'),
-(22, 'Saturday', '08:00:00', '18:00:00');
+(22, 'Saturday', '08:00:00', '18:00:00'),
+(23, 'Monday', '08:00:00', '18:00:00'),
+(23, 'Tuesday', '08:00:00', '18:00:00'),
+(23, 'Wednesday', '08:00:00', '18:00:00'),
+(23, 'Friday', '08:00:00', '18:00:00'),
+(23, 'Saturday', '08:00:00', '18:00:00'),
+(24, 'Monday', '08:00:00', '18:00:00'),
+(24, 'Tuesday', '08:00:00', '18:00:00'),
+(24, 'Wednesday', '08:00:00', '18:00:00'),
+(24, 'Friday', '08:00:00', '18:00:00'),
+(24, 'Saturday', '08:00:00', '18:00:00'),
+(25, 'Monday', '08:00:00', '18:00:00'),
+(25, 'Tuesday', '08:00:00', '18:00:00'),
+(25, 'Wednesday', '08:00:00', '18:00:00'),
+(25, 'Friday', '08:00:00', '18:00:00'),
+(25, 'Saturday', '08:00:00', '18:00:00'),
+(26, 'Monday', '08:00:00', '18:00:00'),
+(26, 'Tuesday', '08:00:00', '18:00:00'),
+(26, 'Wednesday', '08:00:00', '18:00:00'),
+(26, 'Friday', '08:00:00', '18:00:00'),
+(26, 'Saturday', '08:00:00', '18:00:00'),
+(27, 'Monday', '08:00:00', '18:00:00'),
+(27, 'Tuesday', '08:00:00', '18:00:00'),
+(27, 'Wednesday', '08:00:00', '18:00:00'),
+(27, 'Friday', '08:00:00', '18:00:00'),
+(27, 'Saturday', '08:00:00', '18:00:00'),
+(27, 'Monday', '08:00:00', '18:00:00'),
+(27, 'Tuesday', '08:00:00', '18:00:00'),
+(27, 'Wednesday', '08:00:00', '18:00:00'),
+(27, 'Friday', '08:00:00', '18:00:00'),
+(27, 'Saturday', '08:00:00', '18:00:00'),
+(28, 'Monday', '08:00:00', '18:00:00'),
+(28, 'Tuesday', '08:00:00', '18:00:00'),
+(28, 'Wednesday', '08:00:00', '18:00:00'),
+(28, 'Thursday', '08:00:00', '18:00:00'),
+(28, 'Friday', '08:00:00', '18:00:00'),
+(29, 'Monday', '08:00:00', '18:00:00'),
+(29, 'Tuesday', '08:00:00', '18:00:00'),
+(29, 'Wednesday', '08:00:00', '18:00:00'),
+(29, 'Thursday', '08:00:00', '18:00:00'),
+(29, 'Friday', '08:00:00', '18:00:00'),
+(30, 'Monday', '08:00:00', '18:00:00'),
+(30, 'Tuesday', '08:00:00', '18:00:00'),
+(30, 'Wednesday', '08:00:00', '18:00:00'),
+(30, 'Thursday', '08:00:00', '18:00:00'),
+(30, 'Friday', '08:00:00', '18:00:00'),
+(31, 'Monday', '08:00:00', '18:00:00'),
+(31, 'Tuesday', '08:00:00', '18:00:00'),
+(31, 'Wednesday', '08:00:00', '18:00:00'),
+(31, 'Thursday', '08:00:00', '18:00:00'),
+(31, 'Friday', '08:00:00', '18:00:00'),
+(32, 'Monday', '08:00:00', '18:00:00'),
+(32, 'Tuesday', '08:00:00', '18:00:00'),
+(32, 'Wednesday', '08:00:00', '18:00:00'),
+(32, 'Thursday', '08:00:00', '18:00:00'),
+(32, 'Friday', '08:00:00', '18:00:00'),
+(33, 'Monday', '08:00:00', '18:00:00'),
+(33, 'Tuesday', '08:00:00', '18:00:00'),
+(33, 'Wednesday', '08:00:00', '18:00:00'),
+(33, 'Thursday', '08:00:00', '18:00:00'),
+(33, 'Friday', '08:00:00', '18:00:00'),
+(34, 'Monday', '08:00:00', '18:00:00'),
+(34, 'Tuesday', '08:00:00', '18:00:00'),
+(34, 'Wednesday', '08:00:00', '18:00:00'),
+(34, 'Thursday', '08:00:00', '18:00:00'),
+(34, 'Friday', '08:00:00', '18:00:00'),
+(35, 'Monday', '08:00:00', '18:00:00'),
+(35, 'Tuesday', '08:00:00', '18:00:00'),
+(35, 'Wednesday', '08:00:00', '18:00:00'),
+(35, 'Thursday', '08:00:00', '18:00:00'),
+(35, 'Friday', '08:00:00', '18:00:00'),
+(36, 'Monday', '08:00:00', '18:00:00'),
+(36, 'Tuesday', '08:00:00', '18:00:00'),
+(36, 'Wednesday', '08:00:00', '18:00:00'),
+(36, 'Thursday', '08:00:00', '18:00:00'),
+(36, 'Friday', '08:00:00', '18:00:00'),
+(37, 'Monday', '08:00:00', '18:00:00'),
+(37, 'Tuesday', '08:00:00', '18:00:00'),
+(37, 'Wednesday', '08:00:00', '18:00:00'),
+(37, 'Thursday', '08:00:00', '18:00:00'),
+(37, 'Friday', '08:00:00', '18:00:00'),
+(38, 'Monday', '08:00:00', '18:00:00'),
+(38, 'Tuesday', '08:00:00', '18:00:00'),
+(38, 'Wednesday', '08:00:00', '18:00:00'),
+(38, 'Thursday', '08:00:00', '18:00:00'),
+(38, 'Friday', '08:00:00', '18:00:00'),
+(39, 'Monday', '08:00:00', '18:00:00'),
+(39, 'Tuesday', '08:00:00', '18:00:00'),
+(39, 'Wednesday', '08:00:00', '18:00:00'),
+(39, 'Thursday', '08:00:00', '18:00:00'),
+(39, 'Friday', '08:00:00', '18:00:00'),
+(40, 'Monday', '08:00:00', '18:00:00'),
+(40, 'Tuesday', '08:00:00', '18:00:00'),
+(40, 'Wednesday', '08:00:00', '18:00:00'),
+(40, 'Thursday', '08:00:00', '18:00:00'),
+(40, 'Friday', '08:00:00', '18:00:00'),
+(41, 'Monday', '08:00:00', '18:00:00'),
+(41, 'Tuesday', '08:00:00', '18:00:00'),
+(41, 'Wednesday', '08:00:00', '18:00:00'),
+(41, 'Thursday', '08:00:00', '18:00:00'),
+(41, 'Friday', '08:00:00', '18:00:00'),
+(42, 'Monday', '08:00:00', '18:00:00'),
+(42, 'Tuesday', '08:00:00', '18:00:00'),
+(42, 'Wednesday', '08:00:00', '18:00:00'),
+(42, 'Thursday', '08:00:00', '18:00:00'),
+(42, 'Friday', '08:00:00', '18:00:00'),
+(43, 'Monday', '08:00:00', '18:00:00'),
+(43, 'Tuesday', '08:00:00', '18:00:00'),
+(43, 'Wednesday', '08:00:00', '18:00:00'),
+(43, 'Thursday', '08:00:00', '18:00:00'),
+(43, 'Friday', '08:00:00', '18:00:00'),
+(44, 'Monday', '08:00:00', '18:00:00'),
+(44, 'Tuesday', '08:00:00', '18:00:00'),
+(44, 'Wednesday', '08:00:00', '18:00:00'),
+(44, 'Thursday', '08:00:00', '18:00:00'),
+(44, 'Friday', '08:00:00', '18:00:00'),
+(45, 'Monday', '08:00:00', '18:00:00'),
+(45, 'Tuesday', '08:00:00', '18:00:00'),
+(45, 'Wednesday', '08:00:00', '18:00:00'),
+(45, 'Thursday', '08:00:00', '18:00:00'),
+(45, 'Friday', '08:00:00', '18:00:00'),
+(46, 'Monday', '08:00:00', '18:00:00'),
+(46, 'Tuesday', '08:00:00', '18:00:00'),
+(46, 'Wednesday', '08:00:00', '18:00:00'),
+(46, 'Thursday', '08:00:00', '18:00:00'),
+(46, 'Friday', '08:00:00', '18:00:00'),
+(47, 'Monday', '08:00:00', '18:00:00'),
+(47, 'Tuesday', '08:00:00', '18:00:00'),
+(47, 'Wednesday', '08:00:00', '18:00:00'),
+(47, 'Thursday', '08:00:00', '18:00:00'),
+(47, 'Friday', '08:00:00', '18:00:00'),
+(48, 'Monday', '08:00:00', '18:00:00'),
+(48, 'Tuesday', '08:00:00', '18:00:00'),
+(48, 'Wednesday', '08:00:00', '18:00:00'),
+(48, 'Thursday', '08:00:00', '18:00:00'),
+(48, 'Friday', '08:00:00', '18:00:00'),
+(49, 'Monday', '08:00:00', '18:00:00'),
+(49, 'Tuesday', '08:00:00', '18:00:00'),
+(49, 'Wednesday', '08:00:00', '18:00:00'),
+(49, 'Thursday', '08:00:00', '18:00:00'),
+(49, 'Friday', '08:00:00', '18:00:00'),
+(50, 'Monday', '08:00:00', '18:00:00'),
+(50, 'Tuesday', '08:00:00', '18:00:00'),
+(50, 'Wednesday', '08:00:00', '18:00:00'),
+(50, 'Thursday', '08:00:00', '18:00:00'),
+(50, 'Friday', '08:00:00', '18:00:00'),
+(51, 'Monday', '08:00:00', '18:00:00'),
+(51, 'Tuesday', '08:00:00', '18:00:00'),
+(51, 'Wednesday', '08:00:00', '18:00:00'),
+(51, 'Thursday', '08:00:00', '18:00:00'),
+(51, 'Friday', '08:00:00', '18:00:00'),
+(52, 'Monday', '08:00:00', '18:00:00'),
+(52, 'Tuesday', '08:00:00', '18:00:00'),
+(52, 'Wednesday', '08:00:00', '18:00:00'),
+(52, 'Thursday', '08:00:00', '18:00:00'),
+(52, 'Friday', '08:00:00', '18:00:00'),
+(53, 'Monday', '08:00:00', '18:00:00'),
+(53, 'Tuesday', '08:00:00', '18:00:00'),
+(53, 'Wednesday', '08:00:00', '18:00:00'),
+(53, 'Thursday', '08:00:00', '18:00:00'),
+(53, 'Friday', '08:00:00', '18:00:00'),
+(53, 'Monday', '08:00:00', '18:00:00'),
+(54, 'Tuesday', '08:00:00', '18:00:00'),
+(54, 'Wednesday', '08:00:00', '18:00:00'),
+(54, 'Thursday', '08:00:00', '18:00:00'),
+(54, 'Friday', '08:00:00', '18:00:00'),
+(55, 'Monday', '08:00:00', '18:00:00'),
+(55, 'Tuesday', '08:00:00', '18:00:00'),
+(55, 'Wednesday', '08:00:00', '18:00:00'),
+(55, 'Thursday', '08:00:00', '18:00:00'),
+(55, 'Friday', '08:00:00', '18:00:00'),
+(56, 'Monday', '08:00:00', '18:00:00'),
+(56, 'Tuesday', '08:00:00', '18:00:00'),
+(56, 'Wednesday', '08:00:00', '18:00:00'),
+(56, 'Thursday', '08:00:00', '18:00:00'),
+(56, 'Friday', '08:00:00', '18:00:00'),
+(57, 'Monday', '08:00:00', '18:00:00'),
+(57, 'Tuesday', '08:00:00', '18:00:00'),
+(57, 'Wednesday', '08:00:00', '18:00:00'),
+(57, 'Thursday', '08:00:00', '18:00:00'),
+(57, 'Friday', '08:00:00', '18:00:00');
 
 -- --------------------------------------------------------
 
@@ -217,20 +399,20 @@ INSERT INTO `department` (`department_id`, `department_name`, `clinic_id`) VALUE
 (8, 'Endocrinology', 2),
 (9, 'Physiotherapy', 2),
 (10, 'Internal Medicine', 2),
-(26, 'Urology', 3),
-(27, 'Orthopedic surgery', 3),
-(28, 'Mohs Surgery', 3),
-(29, 'General Surgery', 3),
-(30, 'Vasectomy', 3),
-(31, 'Laser Center', 4),
-(32, 'Aesthetic Dermatology', 4),
-(33, 'Plastic Surgery', 4),
-(34, 'Hair Transplant', 4),
-(35, 'Dermatology', 5),
-(36, 'Endocrinology', 5),
-(37, 'Ear Nose and Throat', 5),
-(38, 'Gynecology', 5),
-(39, 'Neurology', 5);
+(11, 'Urology', 3),
+(12, 'Orthopedic surgery', 3),
+(13, 'Mohs Surgery', 3),
+(14, 'General Surgery', 3),
+(15, 'Vasectomy', 3),
+(16, 'Laser Center', 4),
+(17, 'Aesthetic Dermatology', 4),
+(18, 'Plastic Surgery', 4),
+(19, 'Hair Transplant', 4),
+(20, 'Dermatology', 5),
+(21, 'Endocrinology', 5),
+(22, 'Ear Nose and Throat', 5),
+(23, 'Gynecology', 5),
+(24, 'Neurology', 5);
 
 -- --------------------------------------------------------
 
@@ -273,7 +455,42 @@ INSERT INTO `doctor` (`doctor_id`, `first_name`, `last_name`, `email`, `phone`, 
 (19, 'Davan', 'Ricca', 'dava.ric@unionmd.gatineau', '(514) 903-8628', 6),
 (20, 'Akilina', 'Sroka', 'akilina.sro@unionmd.gatineau', '(514) 433-7881', 6),
 (21, 'Agneta', 'Eyler', 'agey@unionmd.gatineau', '(514) 561-6565', 7),
-(22, 'Akilina', 'Fansler', 'akfansler@unionmd.gatineau', '(514) 524-2292', 7);
+(22, 'Akilina', 'Fansler', 'akfansler@unionmd.gatineau', '(514) 524-2292', 7),
+(23, 'Nicodemus', 'Mims', 'nico-mim.unionmdlaval@gmail.com\r\n', '438-555-0174', 8),
+(24, 'Nicodemus', 'Childers', 'nicodemuchilders.unionmdlaval@gmail.com', '438-555-0174', 8),
+(25, 'Akiva', 'Hotchkiss', 'akihotchkiss.unionmdlaval@gmail.com', '438-555-0174', 8),
+(26, 'Galen', 'Conn', 'gale-conn.unionmdlaval@gmail.com', '438-555-0198', 9),
+(27, 'Aldora', 'Mims', 'aldora-mi.unionmdlaval@gmail.com', '438-555-0147', 9),
+(28, 'Ike', 'Eason', 'k.easo.unionmdlaval@gmail.com', '438-555-0119', 10),
+(29, 'Cicily', 'Austin', 'cicil-au.unionmdlaval@gmail.com', '438-555-0186', 10),
+(30, 'Shri', 'Heil', 'sh.he.unionmdlaval@gmail.com', '438-555-0108', 11),
+(31, 'Irvette', 'Austin', 'irvet-austi.unionmdlaval@gmail.com', '438-555-0181', 11),
+(32, 'Carmela', 'Deacon', 'carmedea.unionmdlaval@gmail.com', '438-555-0157', 12),
+(33, 'Klemens', 'Janes', 'klemenja.unionmdlaval@gmail.com', '438-555-0119', 12),
+(34, 'Aakarshan', 'Rada', 'aakar-rad.unionmdlaval@gmail.com', '438-555-0126', 13),
+(35, 'Mervyn', 'Shuman', 'mervyn_shuma.unionmdlaval@gmail.com', '438-555-0103', 13),
+(36, 'Saloman', 'Jones', 'sa.jo.unionmdlaval@gmail.com', '438-555-0187', 14),
+(37, 'Cardew', 'Winstead', 'carde.winstead.unionmdlaval@gmail.com', '438-555-0114', 14),
+(38, 'Fineas', 'McGlone', 'finea_mcglo.unionmdlaval@gmail.com', '438-555-0181', 15),
+(39, 'Herschell', 'Zorn', 'he-zor.unionmdlaval@gmail.com', '438-555-0180', 15),
+(40, 'Jennifer', 'McGlone', 'jennimcg.unionmdmr@gmail.com\r\n', '438-555-0130', 16),
+(41, 'Colby', 'Fichter', 'cofichte.unionmdmr@gmail.com\r\n', '438-555-0104', 16),
+(42, 'Caerwyn', 'Mcdaniels', 'caer_mc.unionmdmr@gmail.com', '438-555-0161', 17),
+(43, 'Veena', 'Edmundson', 'eeedmundson.unionmdmr@gmail.com', '438-555-0129', 17),
+(44, 'Willoughby', 'Simpkins', 'willoughsimpki.unionmdmr@gmail.com', '438-555-0171', 18),
+(45, 'Luce', 'Harpster', 'lu_harpst.unionmdmr@gmail.com', '438-555-0175', 18),
+(46, 'Welby', 'Ogilvie', 'welb_ogilvi.unionmdmr@gmail.com', '438-555-0199', 19),
+(47, 'Senta', 'Ogilvie', 'se-ogi.unionmdmr@gmail.com', '438-555-0107', 19),
+(48, 'Kada', 'Macaulay', 'ka.maca@santemontroyal.com', '438-555-0139', 20),
+(49, 'Ravi', 'Colby', 'racolby@santemontroyal.com', '438-555-0139', 20),
+(50, 'Bourke', 'Mize', 'bourke.mize@santemontroyal.com', '438-555-0140', 21),
+(51, 'Madison', 'Mertz', 'ma-mertz@santemontroyal.com', '438-555-0186', 21),
+(52, 'Amethyst', 'Mertz', 'amethyst.mer@santemontroyal.com', '438-555-0155', 22),
+(53, 'Maire', 'Bunch', 'mairebun@santemontroyal.com', '438-555-0164', 22),
+(54, 'Zakai', 'Gravel', 'za.grav@santemontroyal.com', '438-555-0194', 23),
+(55, 'Seung', 'Zeng', 'seuzeng@santemontroyal.com', '438-555-0140', 23),
+(56, 'Janisa', 'Tindle', 'janitindl@santemontroyal.com', '438-555-0150', 24),
+(57, 'Lothario', 'Law', 'lothario_law@santemontroyal.com', '438-555-0197', 24);
 
 -- --------------------------------------------------------
 
@@ -328,7 +545,7 @@ CREATE TABLE `schedule` (
 --
 
 INSERT INTO `schedule` (`schedule_id`, `is_available`, `doctor_id`) VALUES
-(1, 1, 1),
+(1, 0, 1),
 (2, 1, 2),
 (3, 1, 3),
 (4, 1, 4),
@@ -345,11 +562,46 @@ INSERT INTO `schedule` (`schedule_id`, `is_available`, `doctor_id`) VALUES
 (15, 1, 15),
 (16, 1, 16),
 (17, 1, 17),
-(18, 0, 18),
+(18, 1, 18),
 (19, 1, 19),
 (20, 1, 20),
 (21, 0, 21),
-(22, 1, 22);
+(22, 0, 22),
+(23, 1, 23),
+(24, 1, 24),
+(25, 1, 25),
+(26, 1, 26),
+(27, 1, 27),
+(28, 0, 28),
+(29, 1, 29),
+(30, 1, 30),
+(31, 1, 31),
+(32, 1, 32),
+(33, 0, 33),
+(34, 1, 34),
+(35, 0, 35),
+(36, 1, 36),
+(37, 0, 37),
+(38, 1, 38),
+(39, 1, 39),
+(40, 1, 40),
+(41, 1, 41),
+(42, 1, 42),
+(43, 1, 43),
+(44, 0, 44),
+(45, 1, 45),
+(46, 1, 46),
+(47, 0, 47),
+(48, 1, 48),
+(49, 0, 49),
+(50, 1, 50),
+(51, 1, 51),
+(52, 1, 52),
+(53, 1, 53),
+(54, 1, 54),
+(55, 1, 55),
+(56, 1, 56),
+(57, 0, 57);
 
 --
 -- Indexes for dumped tables
@@ -411,7 +663,7 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `clinic`
@@ -429,7 +681,7 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `patient`
@@ -441,7 +693,7 @@ ALTER TABLE `patient`
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- Constraints for dumped tables

@@ -68,7 +68,7 @@ class DoctorModel extends BaseModel{
                             JOIN days_of_week ON schedule.schedule_id = schedule.schedule_id
                             WHERE doctor.doctor_id = ?
                             AND schedule.schedule_id = days_of_week.schedule_id";
-        $data = $this->run($sql, [$doctor_id])->fetch();
+        $data = $this->run($sql, [$doctor_id])->fetchAll();
         return $data;
     }
  }
