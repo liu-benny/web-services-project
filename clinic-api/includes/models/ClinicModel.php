@@ -14,7 +14,7 @@ class ClinicModel extends BaseModel{
 
     /**
      * Retrieve all clinics from the `clinic` table.
-     * @return array A list of clinics. 
+     * @return object A list of clinics. 
      */
     public function getAllClinics() {
         $sql = "SELECT * FROM clinic";
@@ -23,8 +23,19 @@ class ClinicModel extends BaseModel{
     }
 
     /**
+     * Retrieve info of a given clinic from the `clinic` table.
+     * @param mixed $clinic_id
+     * @return mixed $data
+     */
+    public function getClinicById($clinic_id) {
+        $sql = "SELECT * FROM clinic WHERE clinic_id = ?";
+        $data = $this->run($sql, [$clinic_id])->fetchAll();
+        return $data;
+    }
+
+    /**
      * Create clinic(s) for the `clinic` table.
-     * @return array A list of clinics. 
+     * @return mixed A list of clinics. 
      */
     public function createClinic($clinics){
         $clinics = $this->insert("clinic",$clinics);
