@@ -14,11 +14,11 @@ class DoctorModel extends BaseModel{
 
     /**
      * Retrieve all doctors from the `doctors` table.
-     * @return object . 
+     * @return array 
      */
     public function getAllDoctors() {
         $sql = "SELECT * FROM doctor";
-        $data = $this->rows($sql);
+        $data = $this->paginate($sql);
         return $data;
     }
 

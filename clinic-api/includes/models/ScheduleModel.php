@@ -17,7 +17,7 @@ class ScheduleModel extends BaseModel{
      * Retrieve all doctors from the `schedule` table.
      * @return array A list of schedules. 
      */
-    public function getAllSChedules() {
+    public function getAllSchedules() {
         $sql = "SELECT schedule.schedule_id, schedule.is_available, schedule.doctor_id, days_of_week.day_of_week, days_of_week.time_from, days_of_week.time_to 
                 FROM schedule JOIN days_of_week 
                 ON schedule.schedule_id = days_of_week.schedule_id";
