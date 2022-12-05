@@ -3,7 +3,7 @@
 /**
  * A class for consuming the HealthCare API.
  */
-class HealthCareController extends WebServiceInvoker {
+class HealthCareController extends WebServiceInvoker{
 
     private $request_options = Array(
         'headers' => Array('Accept' => 'application/json')
@@ -18,7 +18,7 @@ class HealthCareController extends WebServiceInvoker {
      * 
      * @return array containing some information about books. 
      */
-    function getBooksInfo() {
+    function getArticles() {
         $articlesData = Array();
         $resource_uri = "https://www.healthcare.gov/api/articles.json";
         $articlesData = $this->invoke($resource_uri);

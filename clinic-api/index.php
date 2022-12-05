@@ -11,6 +11,7 @@ require_once './includes/helpers/helper_functions.php';
 require_once './includes/helpers/Paginator.php';
 require_once './includes/helpers/WebServiceInvoker.php';
 require_once './controllers/CanadaCasesController.php';
+require_once './controllers/HealthCareController.php';
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -47,7 +48,7 @@ $app->put("/clinics","handleUpdateClinics");
 $app->delete("/clinics","handleUnsupportedOperation"); // -- This is not supported.
 
 //URI: /clinics/{clinic_id}
-$app->get("/clinics/{clinic_id}","handleGetClinicById"); 
+$app->get("/clinics/{clinic_id}","getClinicAndArticlesResource"); 
 $app->post("/clinics/{clinic_id}","handleUnsupportedOperation"); // -- This is not supported.
 $app->put("/clinics/{clinic_id}","handleUnsupportedOperation"); // -- This is not supported.
 $app->delete("/clinics/{clinic_id}","handleDeleteClinic");
