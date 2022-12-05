@@ -42,7 +42,7 @@ require_once './includes/helpers/Paginator.php';
 // Define app routes.
 
 // URI: /clinics
-$app->get("/clinics","handleGetAllClinics");
+$app->get("/clinics","handleGetCanadaCases");
 $app->post("/clinics","handleCreateClinics");
 $app->put("/clinics","handleUpdateClinics");
 $app->delete("/clinics","handleUnsupportedOperation"); // -- This is not supported.
@@ -139,12 +139,12 @@ $app->post("/schedules/{schedule_id}","handleUnsupportedOperation"); // -- This 
 $app->put("/schedules/{schedule_id}","handleUnsupportedOperation"); // -- This is not supported.
 $app->delete("/schedules/{schedule_id}","handleDeleteSchedule");
 
-// Composite Resources:
-//URI: /cases
-$app->get("/cases","handleGetCanadaCases");
-$app->post("/cases","handleUnsupportedOperation"); // -- This is not supported.
-$app->put("/cases","handleUnsupportedOperation"); // -- This is not supported.
-$app->delete("/cases","handleUnsupportedOperation"); // -- This is not supported.
+// // Composite Resources:
+// //URI: /cases
+// $app->get("/cases","handleGetCanadaCases");
+// $app->post("/cases","handleUnsupportedOperation"); // -- This is not supported.
+// $app->put("/cases","handleUnsupportedOperation"); // -- This is not supported.
+// $app->delete("/cases","handleUnsupportedOperation"); // -- This is not supported.
 
 // Run the app.
 $app->run();

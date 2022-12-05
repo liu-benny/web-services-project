@@ -16,16 +16,20 @@ function handleGetCanadaCases(Request $request, Response $response, array $args)
     $cases = Array();
     // Get books data from the Ice and Fire API.
     $canadaCases = new CanadaCasesController();
+    $clinic_model = new ClinicModel();
     $cases = $canadaCases->getTotalCases();
-    // Combine the data sets.
-    $jsonData = json_encode($cases, JSON_INVALID_UTF8_SUBSTITUTE);
+    $clinics = $clinic_model->getAllClinics();
 
+    // Combine the data sets.
+    $clinic_and_cases["clinic"] = $clinics;
+    $clinic_and_cases["cases"] = $cases;
+    
     $requested_format = $request->getHeader('Accept');
 
     //--
     //-- We verify the requested resource representation.    
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
-        $response_data = json_encode($cases, JSON_INVALID_UTF8_SUBSTITUTE);
+        $response_data = json_encode($clinic_and_cases, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
         $response_data = json_encode(getErrorUnsupportedFormat());
         $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
