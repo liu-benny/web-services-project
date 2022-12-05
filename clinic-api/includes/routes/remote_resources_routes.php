@@ -6,6 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
 require_once __DIR__ . './../models/BaseModel.php';
+require_once __DIR__ . './../models/ClinicModel.php';
 
 function handleGetCanadaCases(Request $request, Response $response, array $args){
 
@@ -31,4 +32,23 @@ function handleGetCanadaCases(Request $request, Response $response, array $args)
     $response->getBody()->write($response_data);
     return $response->withStatus($response_code);
 }
+
+// function getClinicAndArticlesResource() {
+//     function testCompositeResource() {
+//         $artists_and_books = Array();
+//         // Get books data from the Ice and Fire API.
+//         $iceAndFire = new HealthCareController();
+//         $books = $iceAndFire->getBooksInfo();
+//         // Get the info of a given clinics. 
+//         $clinic_model = new ClinicModel();
+
+//         $clinic = $clinic_model->();
+//         // Combine the data sets.
+//         $artists_and_books["books"] = $books;
+//         $artists_and_books["artists"] = $artists;
+//         $jsonData = json_encode($artists_and_books, JSON_INVALID_UTF8_SUBSTITUTE);
+//         echo $jsonData;
+//     }
+    
+// }
 ?>

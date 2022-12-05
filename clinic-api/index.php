@@ -47,7 +47,7 @@ $app->put("/clinics","handleUpdateClinics");
 $app->delete("/clinics","handleUnsupportedOperation"); // -- This is not supported.
 
 //URI: /clinics/{clinic_id}
-$app->get("/clinics/{clinic_id}","handleUnsupportedOperation"); // -- This is not supported.
+$app->get("/clinics/{clinic_id}","handleGetClinicById"); 
 $app->post("/clinics/{clinic_id}","handleUnsupportedOperation"); // -- This is not supported.
 $app->put("/clinics/{clinic_id}","handleUnsupportedOperation"); // -- This is not supported.
 $app->delete("/clinics/{clinic_id}","handleDeleteClinic");

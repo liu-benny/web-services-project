@@ -33,6 +33,45 @@ function handleGetAllClinics(Request $request, Response $response, array $args){
 
 }
 
+/**
+ * 
+ * @param Request $request
+ * @param Response $response
+ * @param array $args
+ * @return Response
+ */
+function handleGetClinicById(Request $request, Response $response, array $args){
+    $clinic = array();
+    $response_data = array();
+    $response_code = HTTP_OK;
+
+    $clinic_model = new ClinicModel();
+
+
+    $clinic_id = $args["clinic_id"];
+
+    if (isset($clinic_id)) {
+        $clinic = $clinic_model->getClinicById($clinic_id);
+        if (!$clinic) {
+            $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found.");
+            $response->getBody()->write($response_data);
+            return $response->withStatus(HTTP_NOT_FOUND);
+        }
+    }
+
+    $requested_format = $request->getHeader('Accept');
+
+    if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
+        $response_data = json_encode($clinic, JSON_INVALID_UTF8_SUBSTITUTE);
+    } else {
+        $response_data = json_encode(getErrorUnsupportedFormat());
+        $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
+    }
+    $response->getBody()->write($response_data);
+    return $response->withStatus($response_code);
+
+}
+
 // Callback for HTTP POST /clinics
 function handleCreateClinics(Request $request,Response $response, array $args){
     
