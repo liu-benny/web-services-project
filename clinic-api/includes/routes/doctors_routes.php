@@ -17,7 +17,16 @@ function handleGetAllDoctors(Request $request, Response $response, array $args) 
     $response_code = HTTP_OK;
     $doctor_model = new DoctorModel();
 
+    $input_page_number = filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT);
+    $input_per_page = filter_input(INPUT_GET, "per_page", FILTER_VALIDATE_INT);
 
+    // Set default values if one of the following was invalid.
+    $page_number = ($input_page_number > 0) ? $input_page_number : 1;
+    $per_page = ($input_per_page > 0) ? $input_per_page : 10;
+    
+    // Set the pagination options.
+    $doctor_model->setPaginationOptions($page_number, $per_page);
+    
     $doctors = $doctor_model->getAllDoctors();
     if (!$doctors) {
         $response_data = makeCustomJSONError("resourceNotFound", "No record was found.");

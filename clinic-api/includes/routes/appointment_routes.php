@@ -37,7 +37,7 @@ function handleGetAppointmentsByClinicId(Request $request, Response $response, a
         elseif(isset($filter_params["last_name"])){
             $appointments = $appointment_model->getAppointmentsByClinicAndLastName($clinic_id, $filter_params["last_name"]);
         }
-        else{
+        else {
             $appointments = $appointment_model->getAppointmentsByClinicId($clinic_id);
 
         } 
