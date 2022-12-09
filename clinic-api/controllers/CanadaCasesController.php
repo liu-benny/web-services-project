@@ -1,10 +1,5 @@
 <?php
 
-/**
- * A class for consuming the Ice and Fire API.
- *
- * @author Sleiman Rabah
- */
 class CanadaCasesController extends WebServiceInvoker {
 
     private $request_options = Array(

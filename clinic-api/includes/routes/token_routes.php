@@ -71,7 +71,7 @@ function handleCreateUserAccount(Request $request, Response $response, array $ar
     }
     // The user account has been created successfully.  
     return prepareResponse($response,
-            ['error' => false, 'message' => 'The new user account has been created successfully!'], 400);
+            ['error' => false, 'message' => 'The new user account has been created successfully!'], 200);
 }
 
 function prepareResponse(Response $response, $in_payload, $status_code) {
