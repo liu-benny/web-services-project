@@ -66,6 +66,7 @@ require_once './includes/routes/token_routes.php';
 // TODO: And here we define app routes. 
 // Define app routes.
 
+// User authentication
 $app->post("/token", "handleGetToken");
 $app->post("/account", "handleCreateUserAccount");
 
@@ -167,12 +168,22 @@ $app->post("/schedules/{schedule_id}","handleUnsupportedOperation"); // -- This 
 $app->put("/schedules/{schedule_id}","handleUnsupportedOperation"); // -- This is not supported.
 $app->delete("/schedules/{schedule_id}","handleDeleteSchedule");
 
-// // Composite Resources:
-// //URI: /cases
-// $app->get("/cases","handleGetCanadaCases");
-// $app->post("/cases","handleUnsupportedOperation"); // -- This is not supported.
-// $app->put("/cases","handleUnsupportedOperation"); // -- This is not supported.
-// $app->delete("/cases","handleUnsupportedOperation"); // -- This is not supported.
+// Show app routes.
+$app->get('/', function (Request $request, Response $response, $args) {
+    
+    $app_route = 'http://localhost/web-services-project/clinic-api';
+
+    $api["message"] = "Welcome to the Clinic API!";
+    $api["routes"] = ['token' => "$app_route/token",
+    'account' => "$app_route/account",
+    'clinics' => "$app_route/clinics",
+    'doctors' => "$app_route/doctors",
+    'patients' => "$app_route/patients",
+    'schedules' => "$app_route/schedules"];
+
+    $response->getBody()->write(json_encode($api, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    return $response;
+});
 
 // Run the app.
 $app->run();

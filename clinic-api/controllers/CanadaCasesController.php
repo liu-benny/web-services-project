@@ -1,5 +1,5 @@
 <?php
-use GuzzleHttp\Client as GuzzleClient;
+
 /**
  * A class for consuming the Ice and Fire API.
  *

@@ -8,21 +8,6 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 define('DB_CHAR', 'utf8mb4');
 
-
-
-// HTTP response status code. 
-define('HTTP_OK', 200);
-define('HTTP_CREATED', 201);
-define('HTTP_NO_CONTENT', 204);
-define('HTTP_METHOD_NOT_ALLOWED', 405);
-define('HTTP_UNSUPPORTED_MEDIA_TYPE', 415);
-define('HTTP_NOT_FOUND', 404);
-
-// Supported Media Types.
-define('APP_MEDIA_TYPE_JSON', "application/json");
-define('APP_MEDIA_TYPE_XML', "application/xml");
-define('APP_MEDIA_TYPE_YAML', "application/yaml");
-
 // MySQL PDO options. This is a global array that is used in our models.
 $db_options = [
     //required
@@ -36,3 +21,17 @@ $db_options = [
     'port' => '3309'
 ];
 
+
+// HTTP response status code. 
+define('HTTP_OK', 200);
+define('HTTP_CREATED', 201);
+define('HTTP_NO_CONTENT', 204);
+define('HTTP_BAD_REQUEST',400);
+define('HTTP_METHOD_NOT_ALLOWED', 405);
+define('HTTP_UNSUPPORTED_MEDIA_TYPE',415);
+define('HTTP_NOT_FOUND',404);
+
+// Supported Media Types.
+define('APP_MEDIA_TYPE_JSON', "application/json");
+define('APP_MEDIA_TYPE_XML', "application/xml");
+define('APP_MEDIA_TYPE_YAML', "application/yaml");
