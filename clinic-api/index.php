@@ -5,15 +5,18 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 //var_dump($_SERVER["REQUEST_METHOD"]);
 use Slim\Factory\AppFactory;
 
-
+require __DIR__ . '/vendor/autoload.php';
 require_once './includes/app_constants.php';
 require_once './includes/helpers/helper_functions.php';
+require_once './includes/helpers/JWTManager.php';
 require_once './includes/helpers/Paginator.php';
 require_once './includes/helpers/WebServiceInvoker.php';
-require_once './controllers/CanadaCasesController.php';
-require_once './controllers/HealthCareController.php';
 
-require __DIR__ . '/vendor/autoload.php';
+define('APP_BASE_DIR', __DIR__);
+// IMPORTANT: This file must be added to your .ignore file. 
+define('APP_ENV_CONFIG', 'config.env');
+
+$api_base_path = "/web-services-project/clinic-api";
 
 //--Step 1) Instantiate App.
 $app = AppFactory::create();
@@ -25,21 +28,46 @@ $app->addBodyParsingMiddleware();
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 //-- Step 4)
 // TODO: change the name of the sub directory here. You also need to change it in .htaccess
-$app->setBasePath("/web-services-project/clinic-api");
+$app->setBasePath($api_base_path);
+
+$jwt_secret = JWTManager::getSecretKey();
+$app->add(new Tuupola\Middleware\JwtAuthentication([
+            'secret' => $jwt_secret,
+            'algorithm' => 'HS256',
+            'secure' => false, // only for localhost for prod and test env set true            
+            "path" => $api_base_path, // the base path of the API
+            "attribute" => "decoded_token_data",
+            "ignore" => ["$api_base_path/token", "$api_base_path/account"],
+            "error" => function ($response, $arguments) {
+                $data["status"] = "error";
+                $data["message"] = $arguments["message"];
+                $response->getBody()->write(
+                        json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT)
+                );
+                return $response->withHeader("Content-Type", "application/json;charset=utf-8");
+            }
+        ]));
 
 //-- Step 5) Include the files containing the definitions of the callbacks.
+
+require_once './controllers/CanadaCasesController.php';
+require_once './controllers/HealthCareController.php';
 require_once './includes/routes/clinics_routes.php';
 require_once './includes/routes/doctors_routes.php';
 require_once './includes/routes/patients_routes.php';
 require_once './includes/routes/appointment_routes.php';
 require_once './includes/routes/schedules_routes.php';
 require_once './includes/routes/remote_resources_routes.php';
-require_once './includes/helpers/Paginator.php';
+require_once './includes/routes/token_routes.php';
+
 
 
 //-- Step 6)
 // TODO: And here we define app routes. 
 // Define app routes.
+
+$app->post("/token", "handleGetToken");
+$app->post("/account", "handleCreateUserAccount");
 
 // URI: /clinics
 $app->get("/clinics","handleGetCanadaCases");

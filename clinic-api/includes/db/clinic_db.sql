@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2022 at 07:26 AM
+-- Generation Time: Dec 09, 2022 at 01:46 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -49,7 +49,6 @@ INSERT INTO `appointment` (`appointment_id`, `patient_id`, `doctor_id`, `clinic_
 (6, 1, 1, 1, '2015-12-09 16:00:00', '2015-12-09 16:30:00'),
 (7, 4, 20, 2, '2021-07-30 14:45:00', '2021-07-30 15:05:00'),
 (8, 7, 43, 4, '2022-12-05 07:02:37', '2022-12-05 07:02:37'),
-(9, 10, 54, 5, '2018-03-05 12:00:00', '2018-03-05 12:40:00'),
 (10, 11, 45, 4, '2020-02-14 15:20:00', '2020-02-14 15:40:00'),
 (11, 9, 20, 2, '2023-04-01 13:55:00', '2023-04-01 14:55:00'),
 (12, 3, 52, 5, '2021-10-05 10:05:00', '2021-10-05 10:55:00'),
@@ -57,7 +56,6 @@ INSERT INTO `appointment` (`appointment_id`, `patient_id`, `doctor_id`, `clinic_
 (14, 4, 27, 2, '2023-01-11 11:25:00', '2023-01-11 11:45:00'),
 (15, 12, 34, 3, '2022-06-09 13:15:00', '2022-06-09 13:45:00'),
 (16, 5, 29, 2, '2023-02-15 15:10:00', '2023-02-15 15:25:00'),
-(17, 10, 25, 2, '2022-11-11 11:11:11', '2022-11-11 12:12:12'),
 (18, 7, 2, 1, '1997-07-09 11:48:58', '1997-07-09 15:48:58'),
 (19, 3, 3, 1, '2022-12-02 12:12:12', '2022-12-02 12:22:22'),
 (20, 4, 4, 1, '2022-10-02 14:22:22', '2022-10-02 14:55:55'),
@@ -85,11 +83,12 @@ CREATE TABLE `clinic` (
 --
 
 INSERT INTO `clinic` (`clinic_id`, `clinic_name`, `clinic_address`, `clinic_details`) VALUES
-(1, 'UnionMD Montreal', '1191, Union Ave, Montréal, Qc H3B 3C3\r\n', 'Located in the heart of downtown Montreal, our private medical clinic offers a wide range of medical and specialized services.\r\nThe majority of our professionals at downtown clinic Montreal offer private services, but consultations with some of our specialists, such as the allergy or internal medicine, are covered by the Quebec health insurance.\r\nThe goal of our medical clinic is to offer high quality care and consultations within a reasonable time. Your satisfaction is important to us and our team works hard for you to benefit from the latest technologies and experience of our doctors, in a place that reflects comfort and excellence. Get an appointment at our downtown clinic Montreal today!'),
+(1, '', '1191, Union Ave, Montréal, Qc H3B 3C3\r\n', 'Located in the heart of downtown Montreal, our private medical clinic offers a wide range of medical and specialized services.\r\nThe majority of our professionals at downtown clinic Montreal offer private services, but consultations with some of our specialists, such as the allergy or internal medicine, are covered by the Quebec health insurance.\r\nThe goal of our medical clinic is to offer high quality care and consultations within a reasonable time. Your satisfaction is important to us and our team works hard for you to benefit from the latest technologies and experience of our doctors, in a place that reflects comfort and excellence. Get an appointment at our downtown clinic Montreal today!'),
 (2, 'UnionMD Gatineau', '86, Promenade du Portage, Suite 300, Gatineau, Qc, J8X 2K1', 'Located in the heart of downtown Gatineau, our private medical clinic offers a wide range of medical and specialized services, including family medicine, surgery center, dermatology and gastroenterology center. The goal of our medical clinic is to offer high quality care and consultations within a reasonable time. Your satisfaction is important to us and our team works hard for you to benefit from the latest technologies and experience of our doctors, in a place that reflects comfort and excellence. Get an appointment at Gatineau clinic today!'),
 (3, 'UnionMD Laval', '3498 Boulevard Saint-Rose Laval, Qc, H7P 4K7', 'Our clinic in Laval offers you family medicine, minor surgeries, medical dermatology and aesthetic medicine.\r\nOur patients enjoy access to free parking.\r\n\r\nThe goal of our medical clinic is to offer high quality care and consultations within a reasonable time. Your satisfaction is important to us and our team works hard for you to benefit from the latest technologies and experience of our doctors, in a place that reflects comfort and excellence. Get an appointment at our Laval clinic today!'),
 (4, 'UnionMD Town of Mount-Royal (TMR)', '4175, Jean-Talon O, Town of Mount-Royal, Qc, H4P 1W6', 'Located 10 minutes away from the Namur metro station, our clinic on Jean-Talon West (Town of Mont-Royal) occupies the second floor of a comfortable 2-storied building. Our patients enjoy access to free parking. UnionMD Jean-Talon offers a wide range of medical and specialized services, such as medical and aesthetic dermatology, minor surgeries, podiatry, and other services. The goal of our medical clinic is to offer high quality care and consultations within a reasonable time. Your satisfaction is important to us and our team works hard for you to benefit from the'),
-(5, 'SANTÉ MONT-ROYAL MEDICAL CLINIC', '4480 Chemin de la Côte de liesse, Suite 110, Ville Mont-Royal, QC, H4N 2R1', 'We are open 7 days a week and most holidays. Our doctors are qualified to see patients of all ages.');
+(5, 'SANTÉ MONT-ROYAL MEDICAL CLINIC', '4480 Chemin de la Côte de liesse, Suite 110, Ville Mont-Royal, QC, H4N 2R1', 'We are open 7 days a week and most holidays. Our doctors are qualified to see patients of all ages.'),
+(6, 'UnionMD Gatineau', '86, Promenade du Portage, Suite 300, Gatineau, Qc, J8X 2K1', 'This is my new location');
 
 -- --------------------------------------------------------
 
@@ -143,27 +142,6 @@ INSERT INTO `days_of_week` (`schedule_id`, `day_of_week`, `time_from`, `time_to`
 (8, 'Tuesday', '08:00:00', '18:00:00'),
 (8, 'Wednesday', '08:00:00', '18:00:00'),
 (8, 'Thursday', '08:00:00', '18:00:00'),
-(9, 'Friday', '08:00:00', '18:00:00'),
-(9, 'Monday', '08:00:00', '18:00:00'),
-(9, 'Tuesday', '08:00:00', '18:00:00'),
-(9, 'Wednesday', '08:00:00', '18:00:00'),
-(9, 'Thursday', '08:00:00', '18:00:00'),
-(9, 'Saturday', '08:00:00', '18:00:00'),
-(11, 'Tuesday', '08:00:00', '18:00:00'),
-(10, 'Wednesday', '08:00:00', '18:00:00'),
-(10, 'Thursday', '08:00:00', '18:00:00'),
-(10, 'Friday', '08:00:00', '18:00:00'),
-(10, 'Saturday', '08:00:00', '18:00:00'),
-(11, 'Monday', '08:00:00', '18:00:00'),
-(11, 'Tuesday', '08:00:00', '18:00:00'),
-(11, 'Wednesday', '08:00:00', '18:00:00'),
-(11, 'Thursday', '08:00:00', '18:00:00'),
-(11, 'Friday', '08:00:00', '18:00:00'),
-(12, 'Tuesday', '08:00:00', '18:00:00'),
-(12, 'Wednesday', '08:00:00', '18:00:00'),
-(12, 'Thursday', '08:00:00', '18:00:00'),
-(12, 'Friday', '08:00:00', '18:00:00'),
-(12, 'Saturday', '08:00:00', '18:00:00'),
 (13, 'Monday', '08:00:00', '18:00:00'),
 (13, 'Tuesday', '08:00:00', '18:00:00'),
 (13, 'Wednesday', '08:00:00', '18:00:00'),
@@ -389,11 +367,7 @@ INSERT INTO `days_of_week` (`schedule_id`, `day_of_week`, `time_from`, `time_to`
 (56, 'Wednesday', '08:00:00', '18:00:00'),
 (56, 'Thursday', '08:00:00', '18:00:00'),
 (56, 'Friday', '08:00:00', '18:00:00'),
-(57, 'Monday', '08:00:00', '18:00:00'),
-(57, 'Tuesday', '08:00:00', '18:00:00'),
-(57, 'Wednesday', '08:00:00', '18:00:00'),
-(57, 'Thursday', '08:00:00', '18:00:00'),
-(57, 'Friday', '08:00:00', '18:00:00');
+(56, 'Monday', '08:00:00', '18:00:00');
 
 -- --------------------------------------------------------
 
@@ -414,7 +388,6 @@ CREATE TABLE `department` (
 INSERT INTO `department` (`department_id`, `department_name`, `clinic_id`) VALUES
 (1, 'Private Family Medicine', 1),
 (2, 'Private Dermatologist', 1),
-(3, 'Women’s Health', 1),
 (4, 'Gynecology and obstetrics', 1),
 (5, 'Gastroenterology', 1),
 (6, 'Podiatry', 2),
@@ -465,10 +438,6 @@ INSERT INTO `doctor` (`doctor_id`, `first_name`, `last_name`, `email`, `phone`, 
 (6, 'Elvin', 'Henry', 'elvinhenry.unionmdmtl@gmail.com', '(514) 274-4371', 2),
 (7, 'Pacifico', 'Buse', 'pabus@arketmay.com', '(514) 342-6360', 2),
 (8, 'Baran', 'Schaffer', 'barscha@progressenergyinc.info', '(514) 277-6464', 2),
-(9, 'Osric', 'Boisvert', 'osri.boisve@unionmd.mtl', '(418) 335-7522', 3),
-(10, 'Shiela', 'Piche', 'shiepiche@unionmd.mtl', '(450) 246-3522', 3),
-(11, 'Hari', 'Stack', 'harist@unionmd.mtl', '(514) 444-5151', 3),
-(12, 'Odelia', 'Houde', 'odel.houd@unionmd.mtl', '(807) 623-3705', 3),
 (13, 'Irma', 'Gillespie', 'irgillespi@unionmd.mtl', '(438) 745-4449', 4),
 (14, 'Lodema', 'Oney', 'lodem-one@unionmd.mtl', '(438) 473-4473', 4),
 (15, 'Ziven', 'Oney', 'zive.one@unionmd.mtl', '(514) 623-3705', 5),
@@ -513,7 +482,7 @@ INSERT INTO `doctor` (`doctor_id`, `first_name`, `last_name`, `email`, `phone`, 
 (54, 'Zakai', 'Gravel', 'za.grav@santemontroyal.com', '438-555-0194', 23),
 (55, 'Seung', 'Zeng', 'seuzeng@santemontroyal.com', '438-555-0140', 23),
 (56, 'Janisa', 'Tindle', 'janitindl@santemontroyal.com', '438-555-0150', 24),
-(57, 'Lothario', 'Law', 'lothario_law@santemontroyal.com', '438-555-0197', 24);
+(1000, 'Foo', 'Rosas', 'pablodamir.unionmdmtl@gmail.com', '(514) 878-2216', 1);
 
 -- --------------------------------------------------------
 
@@ -547,9 +516,10 @@ INSERT INTO `patient` (`patient_id`, `first_name`, `last_name`, `email`, `phone`
 (7, 'Jon', 'Dhillon', 'jon.dhillon@diaperstack.com', '(604) 876-1119', '1993-04-23', 'Male', 'jon.dhillo', 'U$y_aPe2U'),
 (8, 'Trind', 'Kirchhoff', 'trin.kirchh@diaperstack.com', '(604) 507-7678', '1999-02-09', 'Female', 'trin.kirchh', 'E$UBu]a'),
 (9, 'Mawgan', 'Kraus', 'makr@autozone-inc.info', '(450) 625-6428', '1995-12-03', 'Male', 'makr', 'a^AZUsy'),
-(10, 'Kira', 'Benko', 'ki_be@acusage.net', '(450) 632-0700', '1973-03-22', 'Male', 'ki_be', 'U=eTyNe5ErA]'),
 (11, 'Delbert', 'Marble', 'delbert.ma@arketmay.com', '(416) 461-0279', '1963-04-15', 'Male', 'delbert.ma', 'esepu}u]E_'),
-(12, 'Ambar', 'McPeak', 'am.mcpeak@careful-organics.org', '(250) 385-1999', '1984-02-13', 'Male', 'am.mcpeak', 'Y3AgEhaJ');
+(12, 'Ambar', 'McPeak', 'am.mcpeak@careful-organics.org', '(250) 385-1999', '1984-02-13', 'Male', 'am.mcpeak', 'Y3AgEhaJ'),
+(13, 'Reimar', 'Rosas', 'de.de@autozone-inc.info', '(250) 383-2213', '1985-12-23', 'Male', '', 'Aby*aHE'),
+(1000, 'Reimar', 'Rosas', 'de.de@autozone-inc.info', '(250) 383-2213', '1985-12-23', 'Male', '', 'Aby*aHE');
 
 -- --------------------------------------------------------
 
@@ -576,10 +546,6 @@ INSERT INTO `schedule` (`schedule_id`, `is_available`, `doctor_id`) VALUES
 (6, 1, 6),
 (7, 1, 7),
 (8, 1, 8),
-(9, 1, 9),
-(10, 1, 10),
-(11, 1, 11),
-(12, 1, 12),
 (13, 0, 13),
 (14, 0, 14),
 (15, 1, 15),
@@ -623,8 +589,36 @@ INSERT INTO `schedule` (`schedule_id`, `is_available`, `doctor_id`) VALUES
 (53, 1, 53),
 (54, 1, 54),
 (55, 1, 55),
-(56, 1, 56),
-(57, 0, 57);
+(56, 1, 56);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ws_log`
+--
+
+CREATE TABLE `ws_log` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `user_action` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `logged_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `user_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ws_users`
+--
+
+CREATE TABLE `ws_users` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `first_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '2022-12-01 08:11:50'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -692,7 +686,7 @@ ALTER TABLE `appointment`
 -- AUTO_INCREMENT for table `clinic`
 --
 ALTER TABLE `clinic`
-  MODIFY `clinic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `clinic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `department`
@@ -704,13 +698,13 @@ ALTER TABLE `department`
 -- AUTO_INCREMENT for table `doctor`
 --
 ALTER TABLE `doctor`
-  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `patient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1001;
 
 --
 -- AUTO_INCREMENT for table `schedule`

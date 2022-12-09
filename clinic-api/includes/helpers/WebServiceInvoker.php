@@ -1,5 +1,5 @@
 <?php
-
+use GuzzleHttp\Client;
 /**
  * A wrapper class for invoking remote resources using the Guzzle HTTP library.
  *
