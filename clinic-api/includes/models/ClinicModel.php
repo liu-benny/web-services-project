@@ -72,7 +72,7 @@ class ClinicModel extends BaseModel{
 
     /**
      * Create one or more departments for a given clinic
-     * @return 
+     * @return bool|string $data
      */
     public function createDepartments($data) {
         $data = $this->insert($this->department_table, $data);
@@ -81,7 +81,7 @@ class ClinicModel extends BaseModel{
 
     /**
      * Update one or more given department in a given clinic
-     * @return
+     * @return bool|string $data
      */
     public function updateDepartment($departments) {
         $data = $this->update($this->department_table, $departments['data'], $departments['where']);

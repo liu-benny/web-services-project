@@ -14,7 +14,7 @@ class DoctorModel extends BaseModel{
 
     /**
      * Retrieve all doctors from the `doctors` table.
-     * @return array 
+     * @return array $data
      */
     public function getAllDoctors() {
         $sql = "SELECT * FROM doctor";
@@ -24,7 +24,7 @@ class DoctorModel extends BaseModel{
 
     /**
      * Retrive information about a given doctor
-     * @return
+     * @return array $data
      */
     public function getDoctorById($doctor_id) {
         $sql = "SELECT * FROM doctor WHERE doctor_id = ?";
@@ -34,8 +34,8 @@ class DoctorModel extends BaseModel{
 
     /**
      * Create one or multiple doctors
-     * @return
-     */
+     * @return bool|string $data
+     */ 
     public function createDoctors($data) {
         $data = $this->insert($this->doctor_table, $data);
         return $data;
@@ -43,7 +43,7 @@ class DoctorModel extends BaseModel{
 
     /**
      * Update one or multiple doctors
-     * @return
+     * @return bool|string $data
      */
     public function updateDoctors($doctors) {
         $data = $this->update($this->doctor_table, $doctors['data'], $doctors['where']);
@@ -52,6 +52,7 @@ class DoctorModel extends BaseModel{
 
     /**
      * Delete a record from the doctors table
+     * @return bool|string $data
      */
     public function deleteDoctor($doctor_id) {
         $where = ['doctor_id' => $doctor_id];

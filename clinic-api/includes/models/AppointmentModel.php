@@ -70,7 +70,7 @@ class AppointmentModel extends BaseModel{
 
     /**
      * Create one or multiple appointment
-     * @return string $data false or true
+     * @return bool|string $data
      */
     public function createAppointments($data){
         $data = $this->insert("appointment", $data);
@@ -79,7 +79,7 @@ class AppointmentModel extends BaseModel{
     
     /**
      * Update one or multiple appointment
-     * @return mixed $data
+     * @return bool|string $data
      */
     public function updateAppointments($data ,$where){
         $data = $this->update("appointment", $data, $where);
@@ -88,6 +88,7 @@ class AppointmentModel extends BaseModel{
 
     /**
      * Delete a record from the appointment table
+     * @return bool|string $data
      */
     public function deleteAppointment($appointment_id) {
         $where = ['appointment_id' => $appointment_id];
@@ -96,7 +97,7 @@ class AppointmentModel extends BaseModel{
     }
 
     /**
-     * Summary of getAppointmentsByDate
+     * Filter a list of appointments by date
      * @param mixed $date
      * @return array $data
      */
@@ -116,9 +117,9 @@ class AppointmentModel extends BaseModel{
     }
 
     /**
-     * Summary of getAppointmentsByDate
+     * Get appointment of a given patient at a given clinic, filter by date
      * @param mixed $date
-     * @return 
+     * @return array $data
      */
     public function getAppointmentsByClinicAndPatientIdAndDate($clinic_id, $patient_id, $datetime) {
         $sql = "SELECT app.appointment_id, app.time_from, app.time_to, 
@@ -137,10 +138,10 @@ class AppointmentModel extends BaseModel{
     }
 
     /**
-     * 
+     * filter a list of appointment at a given clinic by date
      * @param mixed $clinic_id
      * @param mixed $datetime
-     * @return array
+     * @return array $data
      */
     public function getAppointmentsByClinicAndDate($clinic_id, $datetime){
         $sql = "SELECT app.appointment_id, app.time_from, app.time_to, 
@@ -158,10 +159,10 @@ class AppointmentModel extends BaseModel{
     }
 
     /**
-     * Summary of getAppointmentsByClinicAndFirstName
+     * filter a list of appointment at a given clinic by patient's  first name
      * @param mixed $clinic_id
      * @param mixed $first_name
-     * @return array
+     * @return array $data
      */
     public function getAppointmentsByClinicAndFirstName($clinic_id, $first_name){
         $sql = "SELECT app.appointment_id, app.time_from, app.time_to, 
@@ -179,10 +180,10 @@ class AppointmentModel extends BaseModel{
     }
 
     /**
-     * Summary of getAppointmentsByClinicAndLastName
+     * Sfilter a list of appointment at a given clinic by patient's  last name
      * @param mixed $clinic_id
      * @param mixed $last_name
-     * @return array
+     * @return array $data
      */
     public function getAppointmentsByClinicAndLastName($clinic_id, $last_name){
         $sql = "SELECT app.appointment_id, app.time_from, app.time_to, 

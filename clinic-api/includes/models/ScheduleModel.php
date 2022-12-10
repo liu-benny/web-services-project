@@ -27,7 +27,7 @@ class ScheduleModel extends BaseModel{
 
     /**
      * Create one or multiple schedules
-     * @return
+     * @return bool|string $data
      */
     public function createSchedules($data) {
         $data = $this->insert($this->schedule_table, $data);
@@ -36,7 +36,7 @@ class ScheduleModel extends BaseModel{
 
     /**
      * Update one or multiple schedules
-     * @return
+     * @return bool|string $data
      */
     public function updateSchedules($schedules) {
         $data = $this->update($this->schedule_table, $schedules['data'], $schedules['where']);

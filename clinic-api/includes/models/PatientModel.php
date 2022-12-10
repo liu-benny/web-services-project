@@ -34,7 +34,7 @@ class PatientModel extends BaseModel{
 
     /**
      * Create one or multiple patients
-     * @return
+     * @return bool|string $data
      */
     public function createPatients($data) {
         $data = $this->insert($this->patient_table, $data);
@@ -43,7 +43,7 @@ class PatientModel extends BaseModel{
 
     /**
      * Update one or multiple patients
-     * @return
+     * @return bool|string $data
      */
     public function updatePatients($patients) {
         $data = $this->update($this->patient_table, $patients['data'], $patients['where']);
@@ -52,6 +52,7 @@ class PatientModel extends BaseModel{
 
     /**
      * Delete a record from the patient table
+     * @return bool|string $data
      */
     public function deletePatient($patient_id) {
         $where = ['patient_id' => $patient_id];
