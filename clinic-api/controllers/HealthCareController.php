@@ -14,7 +14,7 @@ class HealthCareController extends WebServiceInvoker{
     }
 
     /**
-     * Retrieve a list of doctors from the HealthCare API.
+     * Retrieve a list of articles from the HealthCare API.
      * @return array
      */
     function getArticles() {
@@ -25,8 +25,6 @@ class HealthCareController extends WebServiceInvoker{
         if (!empty($articlesData)) {
             
             $articlesData = json_decode($articlesData, true);
-            
-
             
             $index = 0;
             // Parse the list of articles and retrieve some  
