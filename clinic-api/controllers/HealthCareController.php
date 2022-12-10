@@ -14,9 +14,8 @@ class HealthCareController extends WebServiceInvoker{
     }
 
     /**
-     * Fetches and parses a list of books from the Ice and Fire API.
-     * 
-     * @return array containing some information about books. 
+     * Retrieve a list of doctors from the HealthCare API.
+     * @return array
      */
     function getArticles() {
         $articlesData = Array();
@@ -24,13 +23,13 @@ class HealthCareController extends WebServiceInvoker{
         $articlesData = $this->invoke($resource_uri);
 
         if (!empty($articlesData)) {
-            // Parse the fetched list of books.   
+            
             $articlesData = json_decode($articlesData, true);
-            // var_dump($booksData);exit;
+            
 
-            // print_r($booksData["articles"][0]["content"]);
+            
             $index = 0;
-            // Parse the list of books and retreive some  
+            // Parse the list of articles and retrieve some  
             // of the contained information.
             foreach ($articlesData["articles"] as $key => $article) {
                 

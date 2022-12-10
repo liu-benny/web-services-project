@@ -1,5 +1,6 @@
 <?php
 
+
 class CanadaCasesController extends WebServiceInvoker {
 
     private $request_options = Array(
@@ -13,7 +14,7 @@ class CanadaCasesController extends WebServiceInvoker {
     /**
      * Fetches and parses a list of cases from the Covid19 API.
      * 
-     * @return array containing some information about books. 
+     * @return array containing some information about cases. 
      */
     function getTotalCases() {
         $cases = Array();
@@ -21,12 +22,11 @@ class CanadaCasesController extends WebServiceInvoker {
         $casesData = $this->invoke($resource_uri);
 
         if (!empty($casesData)) {
-            // Parse the fetched list of books.   
+            
             $casesData = json_decode($casesData, true);
-            //var_dump($booksData);exit;
-
+            
             $index = 0;
-            // Parse the list of books and retreive some  
+            // Parse the list of cases and retrieve some  
             // of the contained information.
             foreach ($casesData as $key => $case) {
                 $cases[$index]["Country"] =     $case["Country"];
