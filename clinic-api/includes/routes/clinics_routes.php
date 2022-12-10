@@ -15,13 +15,11 @@ function handleGetAllClinics(Request $request, Response $response, array $args){
 
     $clinic_model = new ClinicModel();
 
-    // -- put filters here
-    // $filter_params = $request->getQueryParams();
-
     $clinics = $clinic_model->getAllClinics();
-
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
-
+    //--
+    //-- We verify the requested resource representation.   
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($clinics, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
@@ -34,7 +32,8 @@ function handleGetAllClinics(Request $request, Response $response, array $args){
 }
 
 /**
- * 
+ * Get clinic by Id
+ * /clinics/{clinics_id}
  * @param Request $request
  * @param Response $response
  * @param array $args
@@ -46,11 +45,11 @@ function handleGetClinicById(Request $request, Response $response, array $args){
     $response_code = HTTP_OK;
 
     $clinic_model = new ClinicModel();
-
-
+    // Retreive the clinic id from the request's URI.
     $clinic_id = $args["clinic_id"];
 
     if (isset($clinic_id)) {
+        // Fetch the info about the specified clinic
         $clinic = $clinic_model->getClinicById($clinic_id);
         if (!$clinic) {
             $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found.");
@@ -58,9 +57,10 @@ function handleGetClinicById(Request $request, Response $response, array $args){
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
-
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
-
+    //--
+    //-- We verify the requested resource representation.  
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($clinic, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
@@ -86,7 +86,6 @@ function handleCreateClinics(Request $request,Response $response, array $args){
     $requested_format = $request->getHeader('Accept');
     
     if($parse_data != null){
-
         foreach($parse_data as $clinic){
             if(!isset($clinic['clinic_name']) || !isset($clinic['clinic_address']) || !isset($clinic['clinic_details']) ){
                 $response_data = makeCustomJSONMessage("Error","Record(s) has not been updated. Some fields are empty.");
@@ -97,20 +96,16 @@ function handleCreateClinics(Request $request,Response $response, array $args){
             }
             else{
                 $clinics = array("clinic_name" => $clinic['clinic_name'] , "clinic_address" => $clinic['clinic_address'],'clinic_details' => $clinic['clinic_details']);
-                $clinic_model->createClinic($clinic);
-            }
-            
+                $clinic_model->createClinic($clinics);
+            }   
         }
-
         $response_data = makeCustomJSONMessage("Created","Record(s) has been successfully created.");
     }
     else{
 
         $response_data = makeCustomJSONMessage("Error","Record(s) has not been created. All fields are empty.");
         $response_code = HTTP_BAD_REQUEST;
-
     }
-
     if ($requested_format[0] != APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode(getErrorUnsupportedFormat());
         $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
@@ -168,7 +163,7 @@ function handleUpdateClinics(Request $request,Response $response, array $args){
 }
 
 
-// // Callback for HTTP DELETE /clinics
+// Callback for HTTP DELETE /clinics
 function handleDeleteClinic(Request $request,Response $response, array $args){
     
     $clinic = array();
@@ -209,18 +204,23 @@ function handleGetAllDepartments(Request $request, Response $response, array $ar
     $response_data = array();
     $response_code = HTTP_OK;
     $clinic_model = new ClinicModel();
-
+    // Retreive the clinic id from the request's URI.
     $clinic_id = $args["clinic_id"];
 
     if (isset($clinic_id)) {
+        // Fetch the info about all departments
         $departments = $clinic_model->getAllDepartments($clinic_id);
         if (!$departments) {
+            // No matches found?
             $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
+    //--
+    //-- We verify the requested resource representation.    
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($departments, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
@@ -241,6 +241,8 @@ function handleCreateDepartments(Request $request, Response $response, array $ar
     $data = $request->getParsedBody();
 
     $clinic_model = new ClinicModel();
+    //-- Go over elements stored in the $data array
+    //-- In a for/each loop
     for ($index = 0; $index < count($data); $index++) {
         $department = $data[$index];
         $department_id = $department["department_id"];
@@ -282,7 +284,8 @@ function handleUpdateDepartments(Request $request, Response $response, array $ar
     $data = $request->getParsedBody();
 
     $clinic_model = new ClinicModel();
-
+    //-- Go over elements stored in the $data array
+    //-- In a for/each loop
     for ($index = 0; $index < count($data); $index++) {
         $department = $data[$index];
         $department_id = $department["department_id"];
@@ -302,8 +305,10 @@ function handleUpdateDepartments(Request $request, Response $response, array $ar
         $clinic_model->updateDepartment($updated_department_records);
     }
 
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
-    
+    //-- We retrieve the key and its value
+    //-- We perform an UPDATE/CREATE SQL statement   
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
@@ -323,7 +328,7 @@ function handleDeleteDepartment(Request $request, Response $response, array $arg
     $response_data = array();
     $response_code = HTTP_OK;
     $clinic_model = new ClinicModel();
-
+    // Retreive the department id from the request's URI.
     $department_id = $args["department_id"];
 
     if (isset($department_id)) {
@@ -334,6 +339,7 @@ function handleDeleteDepartment(Request $request, Response $response, array $arg
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
     //--
     //-- We verify the requested resource representation.    
@@ -358,16 +364,20 @@ function handleGetAllDoctorInOneClinic(Request $request, Response $response, arr
     $clinic_model = new ClinicModel();
 
     $clinic_id = $args["clinic_id"];
-
+    // Retreive the artist id from the request's URI.
     if (isset($clinic_id)) {
         $departments = $clinic_model->getAllDoctors($clinic_id);
+        // No matches found?
         if (!$departments) {
             $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified clinic.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
+    //--
+    //-- We verify the requested resource representation.    
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($departments, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {

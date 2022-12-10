@@ -58,7 +58,7 @@ function handleGetArtistById(Request $request, Response $response, array $args) 
     $response_code = HTTP_OK;
     $artist_model = new ArtistModel();
 
-    // Retreive the artist if from the request's URI.
+    // Retreive the artist id from the request's URI.
     $artist_id = $args["artist_id"];
     if (isset($artist_id)) {
         // Fetch the info about the specified artist.

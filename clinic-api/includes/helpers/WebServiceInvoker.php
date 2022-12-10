@@ -1,9 +1,4 @@
 <?php
-/**
- * A wrapper class for invoking remote resources using the Guzzle HTTP library.
- *
- * @author Sleiman Rabah
- */
 class WebServiceInvoker {
 
     private $request_options;
@@ -25,5 +20,4 @@ class WebServiceInvoker {
         // Return the response data.
         return $data;
     }
-
 }

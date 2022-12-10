@@ -24,22 +24,26 @@ function handleGetAppointmentsByClinicId(Request $request, Response $response, a
     $appointment_model->setPaginationOptions($page_number, $per_page);
 
     $clinic_id = $args['clinic_id'];
-
+    //--------------------------------------   
+    // Retreive the query string parameter from the request's URI.
     $filter_params = $request->getQueryParams();
 
     if (isset($clinic_id)) {
+        // filter by date
         if(isset($filter_params["date"])){
             $appointments = $appointment_model->getAppointmentsByClinicAndDate($clinic_id, $filter_params["date"]);
         }
+        // filter by first_name
         elseif(isset($filter_params["first_name"])){
             $appointments = $appointment_model->getAppointmentsByClinicAndFirstName($clinic_id, $filter_params["first_name"]);
         }
+        // filter by last_name
         elseif(isset($filter_params["last_name"])){
             $appointments = $appointment_model->getAppointmentsByClinicAndLastName($clinic_id, $filter_params["last_name"]);
         }
         else {
+            // No filtering by appointment detected.
             $appointments = $appointment_model->getAppointmentsByClinicId($clinic_id);
-
         } 
         if (!$appointments) {
             $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified clinic and/or patient.");
@@ -47,6 +51,7 @@ function handleGetAppointmentsByClinicId(Request $request, Response $response, a
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
 
     //--
@@ -77,18 +82,21 @@ function handleGetAppointmentsByPatientId(Request $request, Response $response, 
     
     // Set the pagination options.
     $appointment_model->setPaginationOptions($page_number, $per_page);
-
+    // Retreive the patient id from the request's URI.
     $patient_id = $args['patient_id'];
-
+    //--------------------------------------   
+    // Retreive the query string parameter from the request's URI.
     $filter_params = $request->getQueryParams();
 
     if (isset($patient_id, $filter_params["date"])) {
-        // Fetch the list of artists matching the provided genre.
+        // Fetch the list of appointment matching the provided date.
         $appointments = $appointment_model->getAppointmentsByDate($patient_id, $filter_params["date"]);
     }   
     else {
+        // No filtering by appointment date detected.
         $appointments = $appointment_model->getAppointmentsByPatientId($patient_id);
     }
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
     if (!$appointments) {
         $response_data = makeCustomJSONError("resourceNotFound", "No record was found for the specified patient.");
@@ -115,19 +123,23 @@ function handleGetAppointmentsByClinicAndPatientId(Request $request, Response $r
     $response_code = HTTP_OK;
 
     $appointment_model = new AppointmentModel();
-
+    // Retreive the clinic id from the request's URI.
     $clinic_id = $args['clinic_id'];
+    // Retreive the patient id from the request's URI.
     $patient_id = $args['patient_id'];
 
+    //--------------------------------------   
+    // Retreive the query string parameter from the request's URI.
     $filter_params = $request->getQueryParams();
 
     if (isset($clinic_id) && isset($patient_id)) {
         if(isset($filter_params["date"])){
+            // Fetch the list of appointment matching the provided date.
             $appointments = $appointment_model->getAppointmentsByClinicAndPatientIdAndDate($clinic_id, $patient_id, $filter_params["date"]);
         }
         else{
+            // No filtering by appointment name detected.
             $appointments = $appointment_model->getAppointmentsByClinicAndPatientId($clinic_id,$patient_id);
-
         } 
         if (!$appointments) {
             $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified clinic and/or patient.");
@@ -135,8 +147,7 @@ function handleGetAppointmentsByClinicAndPatientId(Request $request, Response $r
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
-
-    
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
 
     //--
@@ -158,26 +169,25 @@ function handleCreateAppointmentByPatientId(Request $request, Response $response
     $response_data = array();
     $response_code = HTTP_OK;
     $appointment_model = new AppointmentModel();
-
+    // Retreive the patient id from the request's URI.
     $patient_id = $args['patient_id'];
 
     $parse_data = $request->getParsedBody();
-
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
-    
+
+    //--
+    //-- We verify the requested resource representation.  
     if ($requested_format[0] !== APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode(getErrorUnsupportedFormat());
         $response_code = HTTP_UNSUPPORTED_MEDIA_TYPE;
-
         $response->getBody()->write($response_data);
         return $response->withStatus($response_code);
     }
 
 
     if(isset($patient_id)){
-        
         if($parse_data !== null){
-        
             foreach($parse_data as $appointment){
                 if(!isset($appointment['doctor_id']) || !isset($appointment['clinic_id']) || !isset($appointment['time_from']) || !isset($appointment['time_to']) || !isset($appointment['status'])){
                     $response_data = makeCustomJSONMessage("Error","Record(s) has not been created. Some fields are empty.");
@@ -196,18 +206,13 @@ function handleCreateAppointmentByPatientId(Request $request, Response $response
                     $appointment_model->createAppointments($appointments);
                 }
             }
-    
             $response_data = makeCustomJSONMessage("Created","Record(s) has been successfully created.");
         }
         else{
-    
             $response_data = makeCustomJSONMessage("Error","Record(s) has not been created. All fields are empty.");
             $response_code = HTTP_BAD_REQUEST;
-    
         }
     }
-
-
     $response->getBody()->write($response_data);
     return $response->withStatus($response_code);
 }
@@ -255,24 +260,15 @@ function handleUpdateAppointmentByPatientId(Request $request,Response $response,
                                     "time_to" => $parse_data[0]['time_to'], 
                                     "status" => $parse_data[0]['status']);
                     $appointment_model->updateAppointments($appointments,$patient_id);
-                }
-             
-            
-    
+                }   
             $response_data = makeCustomJSONMessage("Updated","Record has been successfully updated.");
         }
         else{
-    
             $response_data = makeCustomJSONMessage("Error","Record has not been updated. All fields are empty.");
             $response_code = HTTP_BAD_REQUEST;
-    
         }
     }
-
-
     $response->getBody()->write($response_data);
     return $response->withStatus($response_code);
 }
-
-
 ?>

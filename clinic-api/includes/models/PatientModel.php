@@ -14,7 +14,7 @@ class PatientModel extends BaseModel{
 
     /**
      * Retrieve a patient from the `patient` table .
-     * @return object A patients. 
+     * @return object A patient record. 
      */
     public function getPatientById($patient_id) {
         $sql = "SELECT * FROM patient WHERE patient_id = :patient_id";
@@ -60,9 +60,9 @@ class PatientModel extends BaseModel{
     }
 
     /**
-     * Summary of getPatientsByFirstName
+     * Filter /patients by their first name
      * @param mixed $first_name
-     * @return 
+     * @return array $data
      */
     public function getPatientsByFirstName($first_name)
     {
@@ -72,9 +72,9 @@ class PatientModel extends BaseModel{
     }
 
     /**
-     * Summary of getPatientsByLastName
+     * Filter /patients by their last name
      * @param mixed $last_name
-     * @return 
+     * @return array $data
      */
     public function getPatientsByLastName($last_name) {
         $sql = "SELECT * FROM patient WHERE last_name LIKE ?";
@@ -83,9 +83,9 @@ class PatientModel extends BaseModel{
     }
 
     /**
-     * Summary of getPatientsByGender
+     * Filter /patients by their gender
      * @param mixed $gender
-     * @return 
+     * @return array $data
      */
     public function getPatientsByGender($gender)
     {

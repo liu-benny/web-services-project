@@ -18,17 +18,20 @@ function handleGetPatientById(Request $request, Response $response, array $args)
     $response_code = HTTP_OK;
 
     $patient_model = new PatientModel();
-
+    // Retreive the patient id from the request's URI.
     $patient_id = $args['patient_id'];
 
     if (isset($patient_id)) {
+        // Fetch the info about the specified doctor.
         $patient = $patient_model->getPatientById($patient_id);
         if (!$patient) {
+            // No matches found?
             $response_data = makeCustomJSONError("resourceNotFound", "No record was found for the specified patient.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
 
     //--
@@ -79,14 +82,16 @@ function handleGetAllPatients(Request $request, Response $response, array $args)
     }
     else
         $patients = $patient_model->getAllPatients();
-
+    // No matches found?
     if (!$patients) {
         $response_data = makeCustomJSONError("resourceNotFound", "No record was found.");
         $response->getBody()->write($response_data);
         return $response->withStatus(HTTP_NOT_FOUND);
     }
-    
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
+    //--
+    //-- We verify the requested resource representation.
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($patients, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
@@ -107,7 +112,8 @@ function handleCreatePatients(Request $request, Response $response, array $args)
     $data = $request->getParsedBody();
 
     $patient_model = new PatientModel();
-
+    //-- Go over elements stored in the $data array
+    //-- In a for/each loop
     for ($index = 0; $index < count($data); $index++) {
         $patient = $data[$index];
         $patient_id = $patient["patient_id"];
@@ -159,7 +165,8 @@ function handleUpdatePatients(Request $request, Response $response, array $args)
     $data = $request->getParsedBody();
 
     $patient_model = new PatientModel();
-
+    //-- Go over elements stored in the $data array
+    //-- In a for/each loop
     for ($index = 0; $index < count($data); $index++) {
         $patient = $data[$index];
         $patient_id = $patient["patient_id"];
@@ -185,12 +192,13 @@ function handleUpdatePatients(Request $request, Response $response, array $args)
                 "patient_id" => $patient_id,
             ]
         ];
-
+        //-- We retrieve the key and its value
+        //-- We perform an UPDATE/CREATE SQL statement
         $patient_model->updatePatients($updated_patient_records);
     }
-
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
-    
+    //-- We verify the requested resource representation.    
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {

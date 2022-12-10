@@ -39,7 +39,7 @@ function handleGetCanadaCases(Request $request, Response $response, array $args)
 }
 
 /**
- * 
+ * Composite resource: get information of one given clinic and healthcare related articles
  * @param Request $request
  * @param Response $response
  * @param array $args
@@ -54,13 +54,14 @@ function getClinicAndArticlesResource(Request $request, Response $response, arra
     $healthCareArticles = new HealthCareController();
     // Set the pagination options.
     $articles = $healthCareArticles->getArticles();
-    // Get the info of a given clinics. 
     $clinic_model = new ClinicModel();
+    // Retreive the doctor id from the request's URI.
     $clinic_id = $args["clinic_id"];
 
     if (isset($clinic_id)) {
         $clinic = $clinic_model->getClinicById($clinic_id);
         if (!$clinic) {
+            // No matches found?
             $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
@@ -74,8 +75,11 @@ function getClinicAndArticlesResource(Request $request, Response $response, arra
     // $jsonData = json_encode($clinic_and_articles, JSON_INVALID_UTF8_SUBSTITUTE);
     // echo $jsonData;
 
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
 
+    //--
+    //-- We verify the requested resource representation. 
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($clinic_and_articles, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {

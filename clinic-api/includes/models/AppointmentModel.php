@@ -70,7 +70,7 @@ class AppointmentModel extends BaseModel{
 
     /**
      * Create one or multiple appointment
-     * @return
+     * @return string $data false or true
      */
     public function createAppointments($data){
         $data = $this->insert("appointment", $data);
@@ -79,7 +79,7 @@ class AppointmentModel extends BaseModel{
     
     /**
      * Update one or multiple appointment
-     * @return
+     * @return mixed $data
      */
     public function updateAppointments($data ,$where){
         $data = $this->update("appointment", $data, $where);
@@ -98,7 +98,7 @@ class AppointmentModel extends BaseModel{
     /**
      * Summary of getAppointmentsByDate
      * @param mixed $date
-     * @return 
+     * @return array $data
      */
     public function getAppointmentsByDate($patient_id, $datetime) {
         $sql = "SELECT app.appointment_id, app.time_from, app.time_to, 
@@ -136,6 +136,12 @@ class AppointmentModel extends BaseModel{
         return $data;
     }
 
+    /**
+     * 
+     * @param mixed $clinic_id
+     * @param mixed $datetime
+     * @return array
+     */
     public function getAppointmentsByClinicAndDate($clinic_id, $datetime){
         $sql = "SELECT app.appointment_id, app.time_from, app.time_to, 
                 app.clinic_id, clinic.clinic_name, clinic.clinic_address, 
@@ -151,6 +157,12 @@ class AppointmentModel extends BaseModel{
         return $data;
     }
 
+    /**
+     * Summary of getAppointmentsByClinicAndFirstName
+     * @param mixed $clinic_id
+     * @param mixed $first_name
+     * @return array
+     */
     public function getAppointmentsByClinicAndFirstName($clinic_id, $first_name){
         $sql = "SELECT app.appointment_id, app.time_from, app.time_to, 
                 app.clinic_id, clinic.clinic_name, clinic.clinic_address, 
@@ -166,6 +178,12 @@ class AppointmentModel extends BaseModel{
         return $data;
     }
 
+    /**
+     * Summary of getAppointmentsByClinicAndLastName
+     * @param mixed $clinic_id
+     * @param mixed $last_name
+     * @return array
+     */
     public function getAppointmentsByClinicAndLastName($clinic_id, $last_name){
         $sql = "SELECT app.appointment_id, app.time_from, app.time_to, 
                 app.clinic_id, clinic.clinic_name, clinic.clinic_address, 
@@ -180,6 +198,5 @@ class AppointmentModel extends BaseModel{
         $data = $this->paginate($sql, [":clinic_id" => $clinic_id, "last_name" => "%" . $last_name . "%"]);
         return $data;
     }
-
 }
 ?>

@@ -30,12 +30,14 @@ function handleGetAllSchedules(Request $request, Response $response, array $args
     // Retreive the query string parameter from the request's URI.
     $filter_params = $request->getQueryParams();
     if (isset($filter_params["day_of_week"])) {
-        // Fetch the list of artists matching the provided genre.
+        // Fetch the list of schedules matching the provided day of week
         $schedules = $schedule_model->getSChedulesByDayOfWeek($filter_params["day_of_week"]);
     }
     else {
+        // No filtering by artist name detected.
         $schedules = $schedule_model->getAllSChedules();
     }
+    // No matches found?
     if (!$schedules) {
         $response_data = makeCustomJSONError("resourceNotFound", "No record was found.");
         $response->getBody()->write($response_data);
@@ -65,7 +67,8 @@ function handleCreateSchedules(Request $request, Response $response, array $args
     $data = $request->getParsedBody();
 
     $schedule_model = new ScheduleModel();
-
+    //-- Go over elements stored in the $data array
+    //-- In a for/each loop
     for ($index = 0; $index < count($data); $index++) {
         $schedule = $data[$index];
         $schedule_id = $schedule["schedule_id"];
@@ -110,7 +113,8 @@ function handleUpdateSchedules(Request $request, Response $response, array $args
     $data = $request->getParsedBody();
 
     $schedule_model = new ScheduleModel();
-
+    //-- Go over elements stored in the $data array
+    //-- In a for/each loop
     for ($index = 0; $index < count($data); $index++) {
         $schedule = $data[$index];
         $schedule_id = $schedule["schedule_id"];
@@ -131,9 +135,10 @@ function handleUpdateSchedules(Request $request, Response $response, array $args
         //-- We perform an UPDATE/CREATE SQL statement
         $schedule_model->updateSchedules($new_schedule_records);
     }
-
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
-
+    //--
+    //-- We verify the requested resource representation.   
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
@@ -154,7 +159,7 @@ function handleDeleteSchedule(Request $request, Response $response, array $args)
     $response_data = array();
     $response_code = HTTP_OK;
     $schedule_model = new ScheduleModel();
-
+    // Retreive the doctor id from the request's URI.
     $schedule_id = $args["schedule_id"];
 
     if (isset($schedule_id)) {
@@ -165,6 +170,7 @@ function handleDeleteSchedule(Request $request, Response $response, array $args)
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
     //--
     //-- We verify the requested resource representation.    
@@ -189,7 +195,8 @@ function handleCreateSChedulesDetails(Request $request, Response $response, arra
     $data = $request->getParsedBody();
 
     $schedule_model = new ScheduleModel();
-
+    //-- Go over elements stored in the $data array
+    //-- In a for/each loop
     for ($index = 0; $index < count($data); $index++) {
         $schedule = $data[$index];
         $schedule_id = $schedule["schedule_id"];

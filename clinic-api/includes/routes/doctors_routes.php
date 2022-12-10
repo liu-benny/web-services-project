@@ -33,8 +33,11 @@ function handleGetAllDoctors(Request $request, Response $response, array $args) 
         $response->getBody()->write($response_data);
         return $response->withStatus(HTTP_NOT_FOUND);
     }
-    
+    // Handle serve-side content negotiation and produce the requested representation.    
+
     $requested_format = $request->getHeader('Accept');
+    //--
+    //-- We verify the requested resource representation.  
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($doctors, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
@@ -92,6 +95,8 @@ function handleCreateDoctors(Request $request, Response $response, array $args) 
     $data = $request->getParsedBody();
 
     $doctor_model = new DoctorModel();
+    //-- Go over elements stored in the $data array
+    //-- In a for/each loop
     for ($index = 0; $index < count($data); $index++) {
         $doctor = $data[$index];
         $doctor_id = $doctor["doctor_id"];
@@ -139,7 +144,8 @@ function handleUpdateDoctors(Request $request, Response $response, array $args) 
     $data = $request->getParsedBody();
 
     $doctor_model = new DoctorModel();
-
+    //-- Go over elements stored in the $data array
+    //-- In a for/each loop
     for ($index = 0; $index < count($data); $index++) {
         $doctor = $data[$index];
         $doctor_id = $doctor["doctor_id"];
@@ -161,12 +167,15 @@ function handleUpdateDoctors(Request $request, Response $response, array $args) 
                 "doctor_id" => $doctor_id
             ]
         ];
-
+        //-- We retrieve the key and its value
+        //-- We perform an UPDATE/CREATE SQL statement
         $doctor_model->updateDoctors($updated_doctor_records);
     }
-
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
-    
+
+    //--
+    //-- We verify the requested resource representation.   
     if ($requested_format[0] === APP_MEDIA_TYPE_JSON) {
         $response_data = json_encode($data, JSON_INVALID_UTF8_SUBSTITUTE);
     } else {
@@ -186,17 +195,19 @@ function handleDeleteDoctor(Request $request, Response $response, array $args) {
     $response_data = array();
     $response_code = HTTP_OK;
     $doctor_model = new DoctorModel();
-
+    // Retreive the doctor id from the request's URI.
     $doctor_id = $args["doctor_id"];
 
     if (isset($doctor_id)) {
         $rowsCount = $doctor_model->deleteDoctor($doctor_id);
         if (!$rowsCount) {
+            // No matches found?
             $response_data = makeCustomJSONError("resourceNotFound", "No matching record was found for the specified doctor.");
             $response->getBody()->write($response_data);
             return $response->withStatus(HTTP_NOT_FOUND);
         }
     }
+    // Handle serve-side content negotiation and produce the requested representation.    
     $requested_format = $request->getHeader('Accept');
     //--
     //-- We verify the requested resource representation.    
