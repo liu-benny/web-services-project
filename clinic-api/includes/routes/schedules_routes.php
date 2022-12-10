@@ -34,7 +34,7 @@ function handleGetAllSchedules(Request $request, Response $response, array $args
         $schedules = $schedule_model->getSChedulesByDayOfWeek($filter_params["day_of_week"]);
     }
     else {
-        // No filtering by artist name detected.
+        // No filtering by date detected.
         $schedules = $schedule_model->getAllSChedules();
     }
     // No matches found?

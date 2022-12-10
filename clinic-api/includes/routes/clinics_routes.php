@@ -86,9 +86,10 @@ function handleCreateClinics(Request $request,Response $response, array $args){
     $requested_format = $request->getHeader('Accept');
     
     if($parse_data != null){
+        // Loop through the array of clinics in the JSON Body and create each one.
         foreach($parse_data as $clinic){
             if(!isset($clinic['clinic_name']) || !isset($clinic['clinic_address']) || !isset($clinic['clinic_details']) ){
-                $response_data = makeCustomJSONMessage("Error","Record(s) has not been updated. Some fields are empty.");
+                $response_data = makeCustomJSONMessage("Error","Record(s) has not been updated. Some fields are empty."); // Return error message if any field is empty
                 $response_code = HTTP_BAD_REQUEST;
 
                 $response->getBody()->write($response_data);
@@ -96,14 +97,14 @@ function handleCreateClinics(Request $request,Response $response, array $args){
             }
             else{
                 $clinics = array("clinic_name" => $clinic['clinic_name'] , "clinic_address" => $clinic['clinic_address'],'clinic_details' => $clinic['clinic_details']);
-                $clinic_model->createClinic($clinics);
+                $clinic_model->createClinic($clinics); 
             }   
         }
         $response_data = makeCustomJSONMessage("Created","Record(s) has been successfully created.");
     }
     else{
 
-        $response_data = makeCustomJSONMessage("Error","Record(s) has not been created. All fields are empty.");
+        $response_data = makeCustomJSONMessage("Error","Record(s) has not been created. All fields are empty."); 
         $response_code = HTTP_BAD_REQUEST;
     }
     if ($requested_format[0] != APP_MEDIA_TYPE_JSON) {
@@ -128,10 +129,10 @@ function handleUpdateClinics(Request $request,Response $response, array $args){
     $requested_format = $request->getHeader('Accept');
     
     if($parse_data !== null){
-        
+        // Loop through the array of clinics in the JSON Body and update each one.
         foreach($parse_data as $clinic){
             if(!isset($clinic['clinic_id']) || !isset($clinic['clinic_name']) || !isset($clinic['clinic_address']) || !isset($clinic['clinic_details']) ){
-                $response_data = makeCustomJSONMessage("Error","Record(s) has not been updated. Some fields are empty.");
+                $response_data = makeCustomJSONMessage("Error","Record(s) has not been updated. Some fields are empty."); // Return error message if any field is empty
                 $response_code = HTTP_BAD_REQUEST;
 
                 $response->getBody()->write($response_data);
@@ -170,7 +171,7 @@ function handleDeleteClinic(Request $request,Response $response, array $args){
     $response_data = array();
     $response_code = HTTP_OK;
     $clinic_model = new ClinicModel();
-
+    // Retreive the clinic id from the request's URI.
     $clinic_id = $args["clinic_id"];
 
     if (isset($clinic_id)) {

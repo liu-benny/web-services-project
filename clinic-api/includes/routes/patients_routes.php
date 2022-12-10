@@ -69,15 +69,15 @@ function handleGetAllPatients(Request $request, Response $response, array $args)
     // Retreive the query string parameter from the request's URI.
     $filter_params = $request->getQueryParams();
     if (isset($filter_params["first_name"])) {
-        // Fetch the list of artists matching the provided genre.
+        // Fetch the list of patients matching the provided genre.
         $patients = $patient_model->getPatientsByFirstName($filter_params["first_name"]);
     }
     else if (isset($filter_params["last_name"])) {
-        // Fetch the list of artists matching the provided mediaType.
+        // Fetch the list of patients matching the provided mediaType.
         $patients = $patient_model->getPatientsByLastName($filter_params["last_name"]);
     }
     else if (isset($filter_params["gender"])) {
-        // Fetch the list of artists matching the provided mediaType.
+        // Fetch the list of patient matching the provided mediaType.
         $patients = $patient_model->getPatientsByGender($filter_params["gender"]);
     }
     else
@@ -219,11 +219,11 @@ function handleDeletePatient(Request $request, Response $response, array $args) 
     $response_code = HTTP_OK;
     $patient_model = new PatientModel();
 
-    // Retreive the artist if from the request's URI.
+    // Retreive the patient if from the request's URI.
     $patient_id = $args["patient_id"];
 
     if (isset($patient_id)) {
-        // Fetch the info about the specified artist.
+        // Fetch the info about the specified patient.
         $rowsCount = $patient_model->deletePatient($patient_id);
         if (!$rowsCount) {
             // No matches found?
